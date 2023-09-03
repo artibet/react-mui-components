@@ -1,0 +1,51 @@
+{
+  "name": "@artibet/react-mui-components",
+  "version": "1.0.2",
+  "description": "Various react components build with mui library",
+  "main": "index.js",
+  "scripts": {
+    "rollup": "rollup -c --bundleConfigAsCjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artibet/react-mui-components.git"
+  },
+  "keywords": [
+    "react",
+    "mui",
+    "components"
+  ],
+  "author": "Tsakiridis Sotiris",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/artibet/react-mui-components/issues"
+  },
+  "homepage": "https://github.com/artibet/react-mui-components#readme",
+  "peerDependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/roboto": "^5.0.8",
+    "@mui/icons-material": "^5.14.7",
+    "@mui/material": "^5.14.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "files": [
+    "dist",
+    "index.js"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.22.11",
+    "@babel/plugin-transform-runtime": "^7.22.10",
+    "@babel/preset-env": "^7.22.14",
+    "@babel/preset-react": "^7.22.5",
+    "@babel/preset-typescript": "^7.22.11",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "@rollup/plugin-node-resolve": "^15.2.1",
+    "@rollup/plugin-typescript": "^11.1.3",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-terser": "^7.0.2",
+    "typescript": "^5.2.2"
+  }
+}
