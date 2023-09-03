@@ -8,4 +8,8 @@ export { MyEmailField } from "./MyFormFields"
 export { MySwitchField } from "./MyFormFields"
 export { MyColorPickerField } from "./MyFormFields"
 export { MyAutocompleteField } from "./MyFormFields"
+export { TextModalForm } from "./Modals"
+export { EmailModalForm } from "./Modals"
+export { PickColorModalForm } from "./Modals"
+export { AutocompleteModalForm } from "./Modals"
 
