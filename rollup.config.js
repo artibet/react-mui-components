@@ -3,6 +3,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import { terser } from 'rollup-plugin-terser';
+import css from 'rollup-plugin-import-css'
 
 export default {
   input: "src/index.js",
@@ -32,6 +33,7 @@ export default {
       exclude: ["node_modules/**", "dist/**"]
     }),
     commonjs(),
-    terser()
+    terser(),
+    css(),
   ]
 }
