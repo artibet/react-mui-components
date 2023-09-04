@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack } from '@mui/material'
 import React from 'react'
 import { ChromePicker } from 'react-color'
-import { MyChip } from '../MyChip'
+import { MyChip } from '../core/MyChip'
 import './PickColorModalForm.css'
 
 export const PickColorModalForm = ({

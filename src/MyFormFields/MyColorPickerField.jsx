@@ -2,7 +2,7 @@ import { Box, Popover, Stack, Typography } from '@mui/material'
 import React from 'react'
 import { ChromePicker } from 'react-color'
 import { Controller } from 'react-hook-form'
-import { MyChip } from '../MyChip'
+import { MyChip } from '../core/MyChip'
 
 export const MyColorPickerField = ({
   form,

@@ -1,1 +1,0 @@
-export { MyChip } from './MyChip'

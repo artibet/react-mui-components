@@ -8,6 +8,37 @@ import postcss from 'rollup-plugin-postcss'
 
 export default [
 
+  // core
+  {
+    input: "src/core/index.js",
+    output: [
+      {
+        dir: './core',
+        format: "esm",
+        sourcemap: false
+      },
+    ],
+    plugins: [
+      // replace({
+      //   "process.env.NODE_ENV": JSON.stringify(NODE_ENV)
+      // }),
+      peerDepsExternal(),
+      resolve({
+        extensions: ['.js', '.jsx'],
+
+      }),
+      babel({
+        presets: ["@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"],
+        exclude: ["node_modules/**", "dist/**", "hooks/**"]
+      }),
+      commonjs(),
+      terser(),
+      postcss({
+        extensions: ['.css']
+      })
+    ]
+  },
+
   // hooks
   {
     input: "src/hooks/index.js",
