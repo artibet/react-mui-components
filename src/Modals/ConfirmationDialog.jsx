@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from '@mui/material'
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
 export const ConfirmationDialog = ({
     open,
