@@ -17,7 +17,7 @@ const CreateButton = () => {
     <Tooltip title={props.createButtonTooltip} arrow={true} placement='top'>
       <Button
         variant={props.createButtonVariant}
-        color="success" onClick={() => props.onCreateRow()}>
+        onClick={() => props.onCreateRow()}>
         <MdOutlineAdd size={24} />
       </Button>
     </Tooltip>

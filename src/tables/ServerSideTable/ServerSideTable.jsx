@@ -38,6 +38,7 @@ export const ServerSideTable = ({
   tableSize = 'medium',
   columns,
   dataUrl,
+  hasQueryParams = false,   // if data url has already some query parameters - start with & otherwise with ?
   enableGlobalFilter = false,
   enableColumnFilters = false,
   globalFilterPlaceholder = 'Καθολική Αναζήτηση',
@@ -111,8 +112,14 @@ export const ServerSideTable = ({
   // ---------------------------------------------------------------------------------------
   const fetchData = (pageIndexArg, pageSizeArg, sortingArg, globalFilterArg, columnFiltersArg) => {
     startLoader()
+
+    // If dataUrl has already some query parames, first character is &
+    // otherwise first character is ?
+
+    const firstChar = hasQueryParams ? '&' : '?'
+
     // Send request
-    axios.get(`${dataUrl}?page=${pageIndexArg + 1}&pageSize=${pageSizeArg}&sorting=${JSON.stringify(sortingArg)}&globalFilter=${globalFilterArg}&columnFilters=${JSON.stringify(columnFiltersArg)}`)
+    axios.get(`${dataUrl}${firstChar}page=${pageIndexArg + 1}&pageSize=${pageSizeArg}&sorting=${JSON.stringify(sortingArg)}&globalFilter=${globalFilterArg}&columnFilters=${JSON.stringify(columnFiltersArg)}`)
       .then(response => {
         setData(response.data)
         stopLoader()
@@ -122,7 +129,6 @@ export const ServerSideTable = ({
         stopLoader()
       })
   }
-
 
   // ---------------------------------------------------------------------------------------
   // toggle sorting status of column
@@ -274,6 +280,7 @@ export const ServerSideTable = ({
       tableSize,
       columns,
       dataUrl,
+      hasQueryParams,
       enableGlobalFilter,
       enableColumnFilters,
       globalFilterPlaceholder,
