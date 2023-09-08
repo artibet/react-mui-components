@@ -9,6 +9,7 @@ export const MyAutocompleteApiField = ({
   name,
   label,
   optionsUrl,
+  renderOption = null,
   valueKey = 'id',
   labelKey = 'label',
   minChars = 2,
@@ -144,9 +145,13 @@ export const MyAutocompleteApiField = ({
           }
           renderOption={
             (props, option, state) => (
-              <li {...props} key={option[valueKey]}>
-                {option[labelKey]}
-              </li>
+              renderOption
+                ?
+                renderOption(props, option, state)
+                :
+                <li {...props} key={option[valueKey]}>
+                  {option[labelKey]}
+                </li>
             )
           }
         />
