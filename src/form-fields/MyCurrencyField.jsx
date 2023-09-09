@@ -1,7 +1,8 @@
 import React from 'react'
 import { TextField } from '@mui/material'
 import { Controller } from 'react-hook-form'
-import { NumericFormat } from 'react-number-format'
+import NumberFormat from 'react-number-format'
+
 
 export const MyCurrencyField = ({
   form,
@@ -31,7 +32,7 @@ export const MyCurrencyField = ({
         disabled: disabled
       }}
       render={({ field: { onChange, onBlur, value } }) => (
-        <NumericFormat
+        <NumberFormat
           customInput={TextField}
           variant="outlined"
           label={label}
