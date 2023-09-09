@@ -21,6 +21,18 @@ export const MyCurrencyField = ({
   const { errors } = formState
 
   // ---------------------------------------------------------------------------------------
+  // handle value change
+  // ---------------------------------------------------------------------------------------
+  const handleChange = (values, sourceInfo) => {
+    if (values.value === '') {
+      form.setValue(name, null)
+    }
+    else {
+      form.setValue(name, values.floatValue)
+    }
+  }
+
+  // ---------------------------------------------------------------------------------------
   // JSX
   // ---------------------------------------------------------------------------------------
   return (
@@ -44,7 +56,7 @@ export const MyCurrencyField = ({
           decimalScale={2}
           fixedDecimalScale={true}
           allowNegative={false}
-          onChange={onChange}
+          onValueChange={handleChange}
           error={Boolean(errors[name]?.message)}
           helperText={errors[name]?.message}
           {...props}
