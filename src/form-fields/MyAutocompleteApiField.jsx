@@ -41,7 +41,6 @@ export const MyAutocompleteApiField = ({
   const { errors } = formState
 
   React.useState(() => {
-    console.log(options.length, formValue)
     if (options.length === 0 && formValue) {
       async function fetch() {
         setLoading(true)

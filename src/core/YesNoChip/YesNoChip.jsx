@@ -13,7 +13,7 @@ export const YesNoChip = ({ status, showYes = true, showNo = true, width = 80 })
       />
   }
   else {
-    return showYes &&
+    return showNo &&
       <MyChip
         label='ΟΧΙ'
         backgroundColor='red'
