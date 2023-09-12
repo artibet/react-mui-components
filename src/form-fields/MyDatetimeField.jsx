@@ -48,6 +48,7 @@ export const MyDatetimeField = ({
                 helperText={errors[name]?.message}
                 variant="outlined"
                 fullWidth={true}
+                {...props}
               />}
           />
         </LocalizationProvider>
