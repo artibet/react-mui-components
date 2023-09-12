@@ -25,14 +25,14 @@ export const TextModalForm = ({
   // Default value
   // ---------------------------------------------------------------------------------------
   const defaultValues = {
-    textField: value || '',
+    text: value || '',
   }
 
   // ---------------------------------------------------------------------------------------
   // Validation schema
   // ---------------------------------------------------------------------------------------
   const schema = yup.object({
-    textField: required
+    text: required
       ? yup
         .string()
         .max(maxLength, `Παρακαλώ πληκτρολογείστε μέχρι ${maxLength} χαρακτήρες`)
@@ -58,12 +58,12 @@ export const TextModalForm = ({
   }
 
   // ---------------------------------------------------------------------------------------
-  // Reset textfield value
+  // Reset text value
   // ---------------------------------------------------------------------------------------
   React.useEffect(() => {
     if (open) {
       form.clearErrors()
-      form.setValue('textField', value, {
+      form.setValue('text', value || '', {
         shouldValidate: false,
         shouldDirty: false,
         shouldTouch: false
@@ -80,7 +80,7 @@ export const TextModalForm = ({
       <DialogContent>
         <MyTextField
           form={form}
-          name='textField'
+          name='text'
           label={label}
           required={required}
           autofocus={true}
@@ -89,7 +89,7 @@ export const TextModalForm = ({
         />
       </DialogContent>
       <DialogActions>
-        <Button color='success' onClick={form.handleSubmit(onSubmit)}>{okLabel}</Button>
+        <Button color='success' onClick={form.handleSubmit((data) => onSubmit(data.text))}>{okLabel}</Button>
         <Button color='error' onClick={() => onCancel()}>{cancelLabel}</Button>
       </DialogActions>
     </Dialog>
