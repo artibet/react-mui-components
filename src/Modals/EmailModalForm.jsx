@@ -54,7 +54,7 @@ export const EmailModalForm = ({
   const handleKeyDown = e => {
     if (e.code === 'Enter' || e.code === 'NumpadEnter') {
       e.preventDefault()
-      form.handleSubmit(onSubmit)()
+      form.handleSubmit(data => onSubmit(data.email))()
     }
   }
 

@@ -49,15 +49,6 @@ export const AutocompleteModalForm = ({
   // ---------------------------------------------------------------------------------------
   const form = useForm({ defaultValues, resolver: yupResolver(schema) })
 
-  // ---------------------------------------------------------------
-  // submit on key down
-  // ---------------------------------------------------------------
-  // const handleKeyDown = e => {
-  //   if (e.code === 'Enter' || e.code === 'NumpadEnter') {
-  //     e.preventDefault()
-  //     form.handleSubmit(onSubmit)()
-  //   }
-  // }
 
   // ---------------------------------------------------------------------------------------
   // Reset textfield value
@@ -77,7 +68,7 @@ export const AutocompleteModalForm = ({
   // JSX
   // ---------------------------------------------------------------------------------------
   return (
-    <Dialog open={open} onClose={() => { }} /*onKeyDown={handleKeyDown}*/>
+    <Dialog open={open} onClose={() => { }} >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <MyAutocompleteField
