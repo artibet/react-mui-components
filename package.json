@@ -48,7 +48,8 @@
     "utils",
     "modals",
     "form-fields",
-    "tables"
+    "tables",
+    "inertiajs"
   ],
   "devDependencies": {
     "@babel/core": "^7.22.11",
