@@ -64,7 +64,7 @@ export const EmailModalForm = ({
   React.useEffect(() => {
     if (open) {
       form.clearErrors()
-      form.setValue('email', value, {
+      form.setValue('email', value || '', {
         shouldValidate: false,
         shouldDirty: false,
         shouldTouch: false
@@ -89,7 +89,7 @@ export const EmailModalForm = ({
         />
       </DialogContent>
       <DialogActions>
-        <Button color='success' onClick={form.handleSubmit(onSubmit)}>{okLabel}</Button>
+        <Button color='success' onClick={form.handleSubmit(data => onSubmit(data.email))}>{okLabel}</Button>
         <Button color='error' onClick={() => onCancel()}>{cancelLabel}</Button>
       </DialogActions>
     </Dialog>

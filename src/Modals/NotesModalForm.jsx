@@ -77,7 +77,7 @@ export const NotesModalForm = ({
         />
       </DialogContent>
       <DialogActions>
-        <Button color='success' onClick={form.handleSubmit((data) => onSubmit(data.notes))}>{okLabel}</Button>
+        <Button color='success' onClick={form.handleSubmit(data => onSubmit(data.notes))}>{okLabel}</Button>
         <Button color='error' onClick={() => onCancel()}>{cancelLabel}</Button>
       </DialogActions>
     </Dialog>
