@@ -6,10 +6,10 @@ import React from 'react'
 export const MouseOverPopup = ({
   popup,
   children,
-  anchorVertical = 'bottom',
-  anchorHorizontal = 'left',
-  transforVertical = 'top',
-  transformHorizontal = 'left',
+  verticalAnchor = 'bottom',
+  horizontalAnchor = 'left',
+  verticalTransform = 'top',
+  horizontalTransform = 'left',
 }) => {
 
   // ---------------------------------------------------------------------------------------
@@ -51,12 +51,12 @@ export const MouseOverPopup = ({
         open={open}
         anchorEl={anchorEl}
         anchorOrigin={{
-          vertical: anchorVertical,
-          horizontal: anchorHorizontal,
+          vertical: verticalAnchor,
+          horizontal: horizontalAnchor,
         }}
         transformOrigin={{
-          vertical: transforVertical,
-          horizontal: transformHorizontal,
+          vertical: verticalTransform,
+          horizontal: horizontalTransform,
         }}
         onClose={handleClose}
         disableRestoreFocus
