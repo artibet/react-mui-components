@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Dialog, DialogContent, DialogTitle, DialogActions } from '@mui/material'
+import { Button, Dialog, DialogContent, DialogTitle, DialogActions, Typography } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
@@ -18,6 +18,7 @@ export const YesNoModalForm = ({
   onSubmit,
   onCancel,
   required = true,
+  info = '',
   width = 500,
   requiredMessage = 'Υποχρεωτικό πεδίο',
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
@@ -72,6 +73,7 @@ export const YesNoModalForm = ({
     <Dialog open={open} onClose={() => { }} >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
+        {info && <Typography>{info}</Typography>}
         <MyAutocompleteField
           form={form}
           name='field'
