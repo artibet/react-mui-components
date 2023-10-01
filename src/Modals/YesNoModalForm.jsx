@@ -70,7 +70,7 @@ export const YesNoModalForm = ({
   // JSX
   // ---------------------------------------------------------------------------------------
   return (
-    <Dialog open={open} onClose={() => { }} >
+    <Dialog fullWidth maxWidth="sm" open={open} onClose={() => { }} >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         {info && <Typography>{info}</Typography>}
@@ -83,7 +83,7 @@ export const YesNoModalForm = ({
           labelKey='label'
           required={required}
           autofocus
-          sx={{ width: width, marginTop: 2, }}
+          sx={{ marginTop: 2, }}
         />
       </DialogContent>
       <DialogActions>
