@@ -23,7 +23,7 @@ export const DatetimeModalForm = ({
   // Default value
   // ---------------------------------------------------------------------------------------
   const defaultValues = {
-    datetime: value || '',
+    datetime: value,
   }
 
   // ---------------------------------------------------------------------------------------
@@ -61,7 +61,7 @@ export const DatetimeModalForm = ({
   React.useEffect(() => {
     if (open) {
       form.clearErrors()
-      form.setValue('datetime', value || '', {
+      form.setValue('datetime', value, {
         shouldValidate: false,
         shouldDirty: false,
         shouldTouch: false
