@@ -25,7 +25,7 @@ export const IntegerModalForm = ({
   // Default value
   // ---------------------------------------------------------------------------------------
   const defaultValues = {
-    num: value || null,
+    num: notEmpty(value) ? value : null,
   }
 
   // ---------------------------------------------------------------------------------------
@@ -62,7 +62,7 @@ export const IntegerModalForm = ({
   React.useEffect(() => {
     if (open) {
       form.clearErrors()
-      form.setValue('num', value || null, {
+      form.setValue('num', notEmpty(value) ? value : null, {
         shouldValidate: false,
         shouldDirty: false,
         shouldTouch: false
