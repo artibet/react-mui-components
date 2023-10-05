@@ -27,3 +27,4 @@ export const formatFloat = (num, decimals = 2) => {
   })
   return formatter.format(num)
 }
+

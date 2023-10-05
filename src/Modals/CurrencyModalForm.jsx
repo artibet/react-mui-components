@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { MyCurrencyField } from '../form-fields'
+import { notEmpty } from '../utils'
 
 
 export const CurrencyModalForm = ({
@@ -24,7 +25,7 @@ export const CurrencyModalForm = ({
   // Default value
   // ---------------------------------------------------------------------------------------
   const defaultValues = {
-    poso: value || '',
+    poso: notEmpty(value) ? value : null,
   }
 
   // ---------------------------------------------------------------------------------------
@@ -60,7 +61,7 @@ export const CurrencyModalForm = ({
   React.useEffect(() => {
     if (open) {
       form.clearErrors()
-      form.setValue('poso', value || '', {
+      form.setValue('poso', notEmpty(value) ? value : null, {
         shouldValidate: false,
         shouldDirty: false,
         shouldTouch: false
