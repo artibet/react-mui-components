@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Dialog, DialogContent, DialogTitle, DialogActions } from '@mui/material'
+import { Button, Dialog, DialogContent, DialogTitle, DialogActions, Typography } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
@@ -10,6 +10,7 @@ export const NotesModalForm = ({
   open,
   title,
   label,
+  message = null,
   value,
   onSubmit,
   onCancel,
@@ -63,9 +64,10 @@ export const NotesModalForm = ({
   // JSX
   // ---------------------------------------------------------------------------------------
   return (
-    <Dialog open={open} onClose={() => { }} disableRestoreFocus >
+    <Dialog fullWidth open={open} onClose={() => { }} disableRestoreFocus >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
+        {message && <Typography >{message}</Typography>}
         <MyNotesField
           form={form}
           name='notes'
@@ -73,7 +75,7 @@ export const NotesModalForm = ({
           required={required}
           rows={rows}
           autofocus={true}
-          sx={{ width: width, marginTop: 2, }}
+          sx={{ marginTop: 2, }}
         />
       </DialogContent>
       <DialogActions>
