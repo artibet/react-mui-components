@@ -139,7 +139,8 @@ export const ServerSideTable = React.forwardRef(({
         const newData = prevData.data.map(item => item.id === row.id ? row : item)
         return { ...prevData, data: newData }
       })
-    }
+    },
+    refresh: () => fetchData(pageIndex, pageSize, sorting, globalFilter, columnFilters)
   }))
 
   // ---------------------------------------------------------------------------------------
