@@ -19,7 +19,8 @@ export const PopupMenu = ({
   // Click handler
   // ---------------------------------------------------------------------------------------
   const handleClick = (e) => {
-    setAnchorEl(e.currentTarget);
+    e.stopPropagation()
+    setAnchorEl(e.currentTarget)
   };
 
   // ---------------------------------------------------------------------------------------

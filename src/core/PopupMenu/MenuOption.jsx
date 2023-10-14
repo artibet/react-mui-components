@@ -9,12 +9,21 @@ import React from 'react'
 // }
 export const MenuOption = ({ option }) => {
 
+  // ---------------------------------------------------------------------------------------
+  // Click handler
+  // ---------------------------------------------------------------------------------------
+  const handleClick = (e) => {
+    if (!option.onClick) return
+    e.stopPropagation()
+    option.onClick()
+  }
+
   // divider
   if (option.divider) return <Divider />
 
   // List item with or without icon
   return (
-    <MenuItem onClick={option.onClick ? option.onClick : null} >
+    <MenuItem onClick={handleClick} >
       {
         option.icon &&
         <ListItemIcon>
