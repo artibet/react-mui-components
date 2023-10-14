@@ -7,14 +7,15 @@ import React from 'react'
 //   icon: 
 //   onClick
 // }
-export const MenuOption = ({ option }) => {
+export const MenuOption = ({ option, onClose }) => {
 
   // ---------------------------------------------------------------------------------------
   // Click handler
   // ---------------------------------------------------------------------------------------
   const handleClick = (e) => {
-    if (!option.onClick) return
     e.stopPropagation()
+    if (!option.onClick) return
+    onClose(e)
     option.onClick()
   }
 

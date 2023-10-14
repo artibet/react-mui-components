@@ -26,7 +26,8 @@ export const PopupMenu = ({
   // ---------------------------------------------------------------------------------------
   // Close menu handler
   // ---------------------------------------------------------------------------------------
-  const handleClose = () => {
+  const handleClose = (e) => {
+    e.stopPropagation()
     setAnchorEl(null)
   }
 
@@ -55,7 +56,7 @@ export const PopupMenu = ({
       >
         {
           options.map((option, index) => (
-            <MenuOption key={index} option={option} />
+            <MenuOption key={index} option={option} onClose={handleClose} />
           ))
         }
       </Menu>
