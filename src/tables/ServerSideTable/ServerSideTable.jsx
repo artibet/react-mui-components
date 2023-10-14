@@ -1,15 +1,7 @@
-import { Box, Table, TableBody, TableContainer, TableHead, TablePagination, TableRow, Typography } from '@mui/material'
 import React from 'react'
-import GlobalFilter from './GlobalFilter'
 import { useLoader } from '../../hooks'
-import Title from './Title'
-import CreateButton from './CreateButton'
-import GlobalActions from './GlobalActions'
-import TableHeader from './TableHeader'
 import axios from 'axios'
-import { Row } from './Row'
 import { defaultColumnValues } from './defaultColumnValues'
-import { TableContext } from './TableContext'
 
 // ---------------------------------------------------------------------------------------
 // Default pagination
@@ -30,7 +22,7 @@ const defaultData = {
 // ---------------------------------------------------------------------------------------
 // DataTable component
 // ---------------------------------------------------------------------------------------
-export const ServerSideTable = ({
+export const ServerSideTable = React.forwardRef(({
   title,
   titleStyle = {},
   rowStyle = null,             // (row) => {}
@@ -55,7 +47,7 @@ export const ServerSideTable = ({
   filterActiveColor = '#D4F7F4',
   filterInactiveColor = 'white',
   defaultSorting = []
-}) => {
+}, ref) => {
 
   // ---------------------------------------------------------------------------------------
   // session keys
@@ -129,6 +121,15 @@ export const ServerSideTable = ({
         stopLoader()
       })
   }
+
+  // ---------------------------------------------------------------------------------------
+  // Ref callbacks
+  // ---------------------------------------------------------------------------------------
+  React.useImperativeHandle(ref, () => ({
+    updateRow: (row) => {
+      setData(prevData => prevData.map(item => item.id === row.id ? row : item))
+    }
+  }))
 
   // ---------------------------------------------------------------------------------------
   // toggle sorting status of column
@@ -401,4 +402,4 @@ export const ServerSideTable = ({
       />
     </>
   )
-}
+})
