@@ -135,7 +135,10 @@ export const ServerSideTable = React.forwardRef(({
   // ---------------------------------------------------------------------------------------
   React.useImperativeHandle(ref, () => ({
     updateRow: (row) => {
-      setData(prevData => prevData.map(item => item.id === row.id ? row : item))
+      setData(prevData => {
+        const newData = prevData.data.map(item => item.id === row.id ? row : item)
+        return { ...prevData, data: newData }
+      })
     }
   }))
 
