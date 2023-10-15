@@ -34,6 +34,12 @@ export const PopupMenu = ({
   // ---------------------------------------------------------------------------------------
   // JSX
   // ---------------------------------------------------------------------------------------
+
+  // If no options or all options are hidden return null
+  if (!options || options.length === 0) return null
+  if (!options.some(option => !option.hidden)) return null
+
+
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
