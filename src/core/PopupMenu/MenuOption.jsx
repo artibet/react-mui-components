@@ -4,8 +4,10 @@ import React from 'react'
 // menuOption: {
 //   isDivider: true | false
 //   label: Text
-//   icon: 
-//   onClick
+//   icon: JSX
+//   onClick: function
+//   hidden: true | false | function
+//   disabled: true | false | function
 // }
 export const MenuOption = ({ option, onClose }) => {
 
@@ -18,6 +20,9 @@ export const MenuOption = ({ option, onClose }) => {
     onClose(e)
     option.onClick()
   }
+
+  // Is it is hidden return null
+  if (option.hidden) return null
 
   // divider
   if (option.divider) return <Divider />
