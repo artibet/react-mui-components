@@ -9,7 +9,8 @@ export const IconCard = ({
   elevation = 2,
   iconBackgroundColor = 'gray',
   iconColor = 'white',
-  width = '100%'
+  width = '100%',
+  onClick = null
 }) => {
 
   // ---------------------------------------------------------------------------------------
@@ -19,6 +20,7 @@ export const IconCard = ({
     paper: {
       backgroundColor: backgroundColor,
       width: width,
+      cursor: onClick ? 'pointer' : 'default'
     },
     wrapperBox: {
       display: 'flex',
@@ -48,8 +50,19 @@ export const IconCard = ({
 
     }
   }
+
+  // ---------------------------------------------------------------------------------------
+  // Click handler
+  // ---------------------------------------------------------------------------------------
+  const handleClick = () => {
+    onClick && onClick()
+  }
+
+  // ---------------------------------------------------------------------------------------
+  // JSX
+  // ---------------------------------------------------------------------------------------
   return (
-    <Paper elevation={elevation} sx={styles.paper} square>
+    <Paper elevation={elevation} sx={styles.paper} square onClick={handleClick}>
       <Box sx={styles.wrapperBox}>
         <Box sx={styles.iconBox}>
           {icon}
