@@ -7,8 +7,9 @@ export const IconCard = ({
   subtitle = '',
   backgroundColor = 'white',
   elevation = 2,
-  iconBackgroundColor = 'white',
-  iconPadding = '15px',
+  iconBackgroundColor = 'gray',
+  iconColor = 'white',
+  width = '100%'
 }) => {
 
   // ---------------------------------------------------------------------------------------
@@ -17,22 +18,34 @@ export const IconCard = ({
   const styles = {
     paper: {
       backgroundColor: backgroundColor,
+      width: width,
     },
     wrapperBox: {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'start',
-      gap: 1
+      alignItems: 'start',
+      gap: 2
     },
     iconBox: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: iconColor,
       backgroundColor: iconBackgroundColor,
-      padding: iconPadding,
-      display: 'inline-block'
+      padding: 0,
+      margin: 0,
+      width: '72px',
+      height: '72px',
+      fontSize: '48px',
+
     },
     contentBox: {
       display: 'flex',
+      paddingRight: '15px',
       flexDirection: 'column',
-      gap: 1,
+
     }
   }
   return (
@@ -42,7 +55,7 @@ export const IconCard = ({
           {icon}
         </Box>
         <Box sx={styles.contentBox}>
-          <Box sx={{ marginTop: '3px' }}>
+          <Box>
             {title}
           </Box>
           <Box>
