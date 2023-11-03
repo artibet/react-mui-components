@@ -61,7 +61,7 @@ export const MyIntegerField = ({
           error={Boolean(errors[name]?.message)}
           helperText={errors[name]?.message}
           fullWidth
-          autoFocus
+          autoFocus={autofocus}
           {...props}
         />
       )}
