@@ -59,6 +59,7 @@ export const MyCurrencyField = ({
           onValueChange={handleChange}
           error={Boolean(errors[name]?.message)}
           helperText={errors[name]?.message}
+          fullWidth
           {...props}
         />
       )}
