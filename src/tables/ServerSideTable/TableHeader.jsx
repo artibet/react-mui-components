@@ -21,7 +21,7 @@ const TableHeader = () => {
       <TableRow>
         {
           state.columns.map(column => (
-            <TableCell key={column.id} width={column.width}>
+            <TableCell key={column.id} width={column.width} sx={{ minWidth: column.minWidth }}>
               <ColumnTitle column={column} />
             </TableCell>
           ))

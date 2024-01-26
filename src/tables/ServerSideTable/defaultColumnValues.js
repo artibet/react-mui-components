@@ -14,5 +14,6 @@ export const defaultColumnValues = {
   filterOptions: [],    // when filterType == select
   style: null,
   width: '',
+  minWidth: '',
   render: null,   //(row => jsx)
 }
