@@ -23,7 +23,7 @@ const defaultPageSize = 10
 const defaultData = {
   data: [],
   page: 0,
-  page_size: 10,
+  page_size: defaultPageSize,
   total: 0
 }
 
@@ -54,7 +54,8 @@ export const ServerSideTable = React.forwardRef(({
   stateKey = null,
   filterActiveColor = '#D4F7F4',
   filterInactiveColor = 'white',
-  defaultSorting = []
+  defaultSorting = [],
+  initialPageSize = defaultPageSize
 }, ref) => {
 
   // ---------------------------------------------------------------------------------------
@@ -103,7 +104,7 @@ export const ServerSideTable = React.forwardRef(({
   const [globalFilter, setGlobalFilter] = React.useState(globalFilterKey ? sessionStorage.getItem(globalFilterKey) || '' : '')
   const [columnFilters, setColumnFilters] = React.useState(columnFiltersKey ? JSON.parse(sessionStorage.getItem(columnFiltersKey)) || [] : [])
   const [pageIndex, setPageIndex] = React.useState(pageIndexKey ? parseInt(sessionStorage.getItem(pageIndexKey)) || defaultPageIndex : defaultPageIndex)
-  const [pageSize, setPageSize] = React.useState(pageSizeKey ? parseInt(sessionStorage.getItem(pageSizeKey)) || defaultPageSize : defaultPageSize)
+  const [pageSize, setPageSize] = React.useState(pageSizeKey ? parseInt(sessionStorage.getItem(pageSizeKey)) || initialPageSize : initialPageSize)
 
   const { startLoader, stopLoader } = useLoader()
 
