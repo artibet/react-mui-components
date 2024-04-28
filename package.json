@@ -1,6 +1,6 @@
 {
   "name": "@artibet/react-mui-components",
-  "version": "2.14.2",
+  "version": "2.14.3",
   "description": "Various react components build with mui library",
   "main": "./core/index.js",
   "scripts": {
