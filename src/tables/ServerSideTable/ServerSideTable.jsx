@@ -392,8 +392,8 @@ export const ServerSideTable = React.forwardRef(({
               <TableHeader />
             </TableHead>
             <TableBody>
-              {data.data.map(row => (
-                <Row key={row[rowKey]} row={row} />
+              {data.data.map((row, index) => (
+                <Row key={rowKey === '__index__' ? index : row[rowKey]} row={row} />
               ))}
             </TableBody>
 
