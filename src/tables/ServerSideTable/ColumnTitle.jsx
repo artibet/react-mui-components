@@ -12,12 +12,16 @@ const ColumnTitle = ({ column }) => {
   const { api } = React.useContext(TableContext)
 
   // ---------------------------------------------------------------------------------------
+  // Column alignment
+  // ---------------------------------------------------------------------------------------
+  console.log(column)
+  // ---------------------------------------------------------------------------------------
   // JSX
   // ---------------------------------------------------------------------------------------
   return (
     <>
       <Box sx={{ dispaly: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'start' }}>
-        <Box sx={{ display: 'flex', flexDirection: 'row', gap: 0.5, aligntItems: 'center', cursor: column.enableSorting ? 'pointer' : 'default', }}
+        <Box sx={{ display: 'flex', flexDirection: 'row', gap: 0.5, aligntItems: 'center', cursor: column.enableSorting ? 'pointer' : 'default', justifyContent: column.align === 'right' ? 'end' : (column.align === 'center' ? 'center' : 'start') }}
           onClick={column.enableSorting ? (e) => api.toggleSorting(e, column) : null}
         >
           <Box>{column.label}</Box>

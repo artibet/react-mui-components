@@ -27,7 +27,7 @@ export const Row = ({ row }) => {
     <TableRow hover={props.rowsClickable} sx={{ cursor: props.rowsClickable ? 'pointer' : 'default', ...rowStyle }} onClick={() => props.onRowClick && props.onRowClick(row)}>
       {
         state.columns.map(column => (
-          <TableCell key={column.id} sx={{ ...cellStyle }} >
+          <TableCell key={column.id} sx={{ ...cellStyle, textAlign: column.align }} >
             {
               column.render
                 ? column.render(row)
