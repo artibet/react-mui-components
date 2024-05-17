@@ -38,6 +38,7 @@ export const ServerSideTable = React.forwardRef(({
   tableSize = 'medium',
   columns,
   dataUrl,
+  rowKey = 'id',
   hasQueryParams = false,   // if data url has already some query parameters - start with & otherwise with ?
   enableGlobalFilter = false,
   enableColumnFilters = false,
@@ -391,8 +392,8 @@ export const ServerSideTable = React.forwardRef(({
               <TableHeader />
             </TableHead>
             <TableBody>
-              {data.data.map(row => (
-                <Row key={row.id} row={row} />
+              {data.data.map((row, index) => (
+                <Row key={rowKey === '__index__' ? index : row[rowKey]} row={row} />
               ))}
             </TableBody>
 

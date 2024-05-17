@@ -15,5 +15,6 @@ export const defaultColumnValues = {
   style: null,
   width: '',
   minWidth: '',
+  align: 'left',
   render: null,   //(row => jsx)
 }
