@@ -56,6 +56,7 @@ export const MyAutocompleteField = ({
           options={options}
           isOptionEqualToValue={(option, value) => option[valueKey] === value[valueKey]}
           noOptionsText={noOptionsText}
+          getOptionLabel={(option) => option[labelKey]}
           renderInput={
             (params) => (
               <TextField
