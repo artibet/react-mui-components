@@ -8,6 +8,7 @@ import { MyTextField, MyUploadField } from '../form-fields'
 export const SelectFileModalForm = ({
   open,
   onSubmit,
+  description = true,
   maxFileName = 255,
   onCancel }) => {
 
@@ -23,10 +24,12 @@ export const SelectFileModalForm = ({
   // Validation schema
   // ---------------------------------------------------------------------------------------
   const schema = yup.object({
-    descr: yup
-      .string()
-      .required('Παρακαλώ συμπληρώστε την περιγραφή του αρχείου')
-      .max(maxFileName, `Η περιγραφή δεν πρέπει να υπερβαίνει τους ${maxFileName} χαρακτήρες`),
+    descr: description ?
+      yup
+        .string()
+        .required('Παρακαλώ συμπληρώστε την περιγραφή του αρχείου')
+        .max(maxFileName, `Η περιγραφή δεν πρέπει να υπερβαίνει τους ${maxFileName} χαρακτήρες`)
+      : yup.string(),
     filename: yup
       .mixed()
       .required('Παρακαλώ επιλέξτε ένα αρχείο')
@@ -58,13 +61,16 @@ export const SelectFileModalForm = ({
 
         <Stack sx={{ marginTop: 2 }} gap={3}>
 
-          <MyTextField
-            form={form}
-            name='descr'
-            label='Περιγραφή Αρχείου'
-            required
-            autofocus
-          />
+          {
+            description &&
+            <MyTextField
+              form={form}
+              name='descr'
+              label='Περιγραφή Αρχείου'
+              required
+              autofocus
+            />
+          }
 
           <MyUploadField
             form={form}
