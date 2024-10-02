@@ -38,6 +38,7 @@ export const CurrencyModalForm = ({
         .required(requiredMessage)
       : yup
         .string()
+        .nullable(true)
   })
 
   // ---------------------------------------------------------------------------------------

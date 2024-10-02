@@ -38,6 +38,7 @@ export const DecimalModalForm = ({
         .required(requiredMessage)
       : yup
         .string()
+        .nullable(true)
   })
 
   // ---------------------------------------------------------------------------------------
