@@ -37,9 +37,19 @@ export const IntegerModalForm = ({
     num: yup
       .number()
       .when([], {
-        is: () => required,
-        then: () => yup.number().required(requiredMessage),
-        otherwise: () => yup.number().nullable(true)
+        is: _ => required,
+        then: schema => schema.required(requiredMessage),
+        otherwise: schema => schema.nullable(true)
+      })
+      .when([], {
+        is: _ => minValue !== null,
+        then: schema => schema.min(minValue, `Η τιμή πρέπει να είναι μεγαλύτερη ή ίση από ${minValue}`),
+        otherwise: schema => schema
+      })
+      .when([], {
+        is: _ => maxValue !== null,
+        then: schema => schema.max(maxValue, `Η τιμή πρέπει να είναι μικρότερη ή ίση από ${maxValue}`),
+        otherwise: schema => schema
       })
   })
 

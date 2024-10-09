@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { MyCurrencyField } from '../form-fields'
-import { notEmpty } from '../utils'
+import { formatFloat, notEmpty } from '../utils'
 
 
 export const DecimalModalForm = ({
@@ -12,6 +12,7 @@ export const DecimalModalForm = ({
   title,
   label,
   value,
+  decimals = 2,
   onSubmit,
   onCancel,
   width = 500,
@@ -32,13 +33,24 @@ export const DecimalModalForm = ({
   // Validation schema
   // ---------------------------------------------------------------------------------------
   const schema = yup.object({
-    field: required
-      ? yup
-        .string()
-        .required(requiredMessage)
-      : yup
-        .string()
-        .nullable(true)
+    field: yup
+      .number()
+      .when([], {
+        is: _ => required,
+        then: schema => schema.required(requiredMessage),
+        otherwise: schema => schema.nullable(true)
+      })
+      .when([], {
+        is: _ => minValue !== null,
+        then: schema => schema.min(minValue, `Η τιμή πρέπει να είναι μεγαλύτερη ή ίση από ${formatFloat(minValue, decimals)}`),
+        otherwise: schema => schema
+
+      })
+      .when([], {
+        is: _ => maxValue !== null,
+        then: schema => schema.max(maxValue, `Η τιμή πρέπει να είναι μικρότερη ή ίση από ${formatDecimal(maxValue, decimals)}`),
+        otherwise: schema => schema
+      })
   })
 
   // ---------------------------------------------------------------------------------------

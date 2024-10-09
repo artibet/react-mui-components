@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { MyCurrencyField } from '../form-fields'
-import { notEmpty } from '../utils'
+import { formatCurrency, notEmpty } from '../utils'
 
 
 export const CurrencyModalForm = ({
@@ -16,6 +16,8 @@ export const CurrencyModalForm = ({
   onCancel,
   width = 500,
   required = true,
+  minValue = null,
+  maxValue = null,
   requiredMessage = 'Υποχρεωτικό πεδίο',
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
   cancelLabel = 'ΑΚΥΡΩΣΗ'
@@ -32,13 +34,24 @@ export const CurrencyModalForm = ({
   // Validation schema
   // ---------------------------------------------------------------------------------------
   const schema = yup.object({
-    poso: required
-      ? yup
-        .string()
-        .required(requiredMessage)
-      : yup
-        .string()
-        .nullable(true)
+    poso: yup
+      .number()
+      .when([], {
+        is: _ => required,
+        then: schema => schema.required(requiredMessage),
+        otherwise: schema => schema.nullable(true)
+      })
+      .when([], {
+        is: _ => minValue !== null,
+        then: schema => schema.min(minValue, `Το ποσό πρέπει να είναι μεγαλύτερο ή ίσο από ${formatCurrency(minValue)}`),
+        otherwise: schema => schema
+
+      })
+      .when([], {
+        is: _ => maxValue !== null,
+        then: schema => schema.max(maxValue, `Το ποσό πρέπει να είναι μικρότερο ή ίσο από ${formatCurrency(maxValue)}`),
+        otherwise: schema => schema
+      })
   })
 
   // ---------------------------------------------------------------------------------------
