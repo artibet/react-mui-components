@@ -9,7 +9,7 @@ import { myDebounce } from '../utils'
 // ---------------------------------------------------------------------------------------
 // var inputText = ''
 
-export const MyAutocompleteApiField = ({
+export const MyAutocompleteApiField = React.forwardRef(({
   form,
   name,
   label,
@@ -28,7 +28,7 @@ export const MyAutocompleteApiField = ({
   size = 'medium',
   onChange: onChangeProp = null,
   ...props
-}) => {
+}, ref) => {
 
   // ---------------------------------------------------------------------------------------
   // State
@@ -36,6 +36,23 @@ export const MyAutocompleteApiField = ({
   const [localValue, setLocalValue] = React.useState(null)
   const [options, setOptions] = React.useState([])
   const [loading, setLoading] = React.useState(false)
+
+  // ---------------------------------------------------------------------------------------
+  // Ref callbacks
+  // ---------------------------------------------------------------------------------------
+  React.useImperativeHandle(ref, () => ({
+    setValue: newValue => {
+      form.setValue(name, newValue)
+      async function fetch() {
+        setLoading(true)
+        const response = await axios.get(`${optionsUrl}?id=${newValue}`)
+        setOptions(response.data)
+        setLocalValue(response.data.find(option => option[valueKey] === form.getValues(name)) || null)
+        setLoading(false)
+      }
+      fetch()
+    }
+  }))
 
   // ---------------------------------------------------------------------------------------
   // Destructure form fiels
@@ -140,4 +157,4 @@ export const MyAutocompleteApiField = ({
       )}
     />
   )
-}
+})
