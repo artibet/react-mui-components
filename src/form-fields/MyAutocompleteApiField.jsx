@@ -4,6 +4,11 @@ import axios from 'axios'
 import { Controller } from 'react-hook-form'
 import { myDebounce } from '../utils'
 
+// ---------------------------------------------------------------------------------------
+// Non-state variable for synchronous update
+// ---------------------------------------------------------------------------------------
+// var inputText = ''
+
 export const MyAutocompleteApiField = ({
   form,
   name,
@@ -31,15 +36,12 @@ export const MyAutocompleteApiField = ({
   const [localValue, setLocalValue] = React.useState(null)
   const [options, setOptions] = React.useState([])
   const [loading, setLoading] = React.useState(false)
-  const [inputText, setInputText] = React.useState('')
 
   // ---------------------------------------------------------------------------------------
   // Destructure form fiels
   // ---------------------------------------------------------------------------------------
   const { control, formState } = form
   const { errors } = formState
-
-  const formValue = form.watch(name)
 
   // ---------------------------------------------------------------------------------------
   // Fetch option form existing value on mount
@@ -58,39 +60,21 @@ export const MyAutocompleteApiField = ({
   }, [])
 
   // ---------------------------------------------------------------------------------------
+  // fetch function
+  // ---------------------------------------------------------------------------------------
+  const fetchOptions = async (id, token) => {
+    setLoading(true)
+    const response = await axios.get(`${optionsUrl}?id=${id ? id : ''}&&token=${token ? token : ''}`)
+    setOptions(response.data)
+    setLoading(false)
+  }
+
+  // ---------------------------------------------------------------------------------------
   // Input change handler
   // ---------------------------------------------------------------------------------------
   const handleInputChange = (_, newValue) => {
-    setInputText(newValue)
-    if (localValue && localValue.label !== newValue) {
-      form.setValue(name, null)
-      setLocalValue(null)
-    }
-    fetchOptions()
+    fetchOptions(form.getValues(name), newValue)
   }
-
-  // ---------------------------------------------------------------------------------------
-  // fetch function
-  // ---------------------------------------------------------------------------------------
-  const fetchOptions = async () => {
-
-    // Fetch option for current selected value (if any)
-    if (form.getValues(name)) {
-      setLoading(true)
-      const response = await axios.get(`${optionsUrl}?id=${form.getValues(name)}`)
-      setOptions(response.data)
-      setLoading(false)
-    }
-    else {
-      if (inputText.length >= minChars) {
-        setLoading(true)
-        const response = await axios.get(`${optionsUrl}?token=${inputText}`)
-        setOptions(response.data)
-        setLoading(false)
-      }
-    }
-  }
-
 
   // ---------------------------------------------------------------------------------------
   // JSX
