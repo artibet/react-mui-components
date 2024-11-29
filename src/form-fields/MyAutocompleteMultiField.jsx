@@ -15,6 +15,7 @@ export const MyAutocompleteMultiField = ({
   maxLength = 255,
   autofocus = false,
   noOptionsText = 'Δεν υπάρχουν επιλογές',
+  showErrors = true,
   ...props
 }) => {
 
@@ -77,11 +78,11 @@ export const MyAutocompleteMultiField = ({
                 disabled={disabled}
                 autoFocus={autofocus}
                 inputProps={{ maxLength: maxLength }}
-                error={Boolean(errors[name]?.message)}
+                error={showErrors && Boolean(errors[name]?.message)}
                 onBlur={onBlur}
                 variant="outlined"
                 fullWidth={true}
-                helperText={errors[name]?.message}
+                helperText={showErrors && errors[name]?.message}
                 {...params}
                 {...props}
               />

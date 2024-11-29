@@ -27,6 +27,7 @@ export const MyAutocompleteApiField = React.forwardRef(({
   placeholder = '',
   size = 'medium',
   onChange: onChangeProp = null,
+  showErrors = true,
   ...props
 }, ref) => {
 
@@ -131,11 +132,11 @@ export const MyAutocompleteApiField = React.forwardRef(({
                 autoFocus={autofocus}
                 placeholder={placeholder}
                 inputProps={{ maxLength: maxLength }}
-                error={Boolean(errors[name]?.message)}
+                error={showErrors && Boolean(errors[name]?.message)}
                 onBlur={onBlur}
                 variant="outlined"
                 fullWidth={true}
-                helperText={errors[name]?.message}
+                helperText={showErrors && errors[name]?.message}
                 size={size}
                 {...params}
                 {...props}

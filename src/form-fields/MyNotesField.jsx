@@ -10,6 +10,7 @@ export const MyNotesField = ({
   required = false,
   disabled = false,
   autofocus = false,
+  showErrors = true,
   ...props
 }) => {
 
@@ -40,9 +41,9 @@ export const MyNotesField = ({
           maxRows={rows}
           onChange={onChange}
           onBlur={onBlur}
-          error={Boolean(errors[name]?.message)}
+          error={showErrors && Boolean(errors[name]?.message)}
           fullWidth={true}
-          helperText={errors[name]?.message}
+          helperText={showErrors && errors[name]?.message}
           variant="outlined"
           disabled={disabled}
           autoFocus={autofocus}

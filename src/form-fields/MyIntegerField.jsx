@@ -12,6 +12,7 @@ export const MyIntegerField = ({
   required = false,
   disabled = false,
   autofocus = false,
+  showErrors = true,
   ...props
 }) => {
 
@@ -58,8 +59,8 @@ export const MyIntegerField = ({
           fixedDecimalScale={true}
           allowNegative={allowNegative}
           onValueChange={handleChange}
-          error={Boolean(errors[name]?.message)}
-          helperText={errors[name]?.message}
+          error={showErrors && Boolean(errors[name]?.message)}
+          helperText={showErrors && errors[name]?.message}
           fullWidth
           autoFocus={autofocus}
           {...props}

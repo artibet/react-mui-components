@@ -11,6 +11,7 @@ export const MyCurrencyField = ({
   required = false,
   disabled = false,
   autofocus = false,
+  showErrors = true,
   ...props
 }) => {
 
@@ -57,8 +58,8 @@ export const MyCurrencyField = ({
           fixedDecimalScale={true}
           allowNegative={false}
           onValueChange={handleChange}
-          error={Boolean(errors[name]?.message)}
-          helperText={errors[name]?.message}
+          error={showErrors && Boolean(errors[name]?.message)}
+          helperText={showErrors && errors[name]?.message}
           fullWidth
           {...props}
         />

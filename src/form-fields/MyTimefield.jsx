@@ -13,6 +13,7 @@ export const MyTimeField = ({
   required = false,
   disabled = false,
   autofocus = false,
+  showErrors = true,
   ...props
 }) => {
 
@@ -44,8 +45,8 @@ export const MyTimeField = ({
             renderInput={(params) =>
               <TextField {...params}
                 required={required}
-                error={Boolean(errors[name]?.message)}
-                helperText={errors[name]?.message}
+                error={showErrors && Boolean(errors[name]?.message)}
+                helperText={showErrors && errors[name]?.message}
                 variant="outlined"
                 fullWidth={true}
                 {...props}
