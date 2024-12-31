@@ -1,7 +1,7 @@
 import React from 'react'
 import { TextField } from '@mui/material'
 import { Controller } from 'react-hook-form'
-import NumberFormat from 'react-number-format'
+import { NumericFormat } from 'react-number-format'
 
 
 export const MyIntegerField = ({
