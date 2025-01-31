@@ -42,15 +42,17 @@ export const MyDatetimeField = ({
             value={value}
             onChange={onChange}
             disabled={disabled}
-            renderInput={(params) =>
-              <TextField {...params}
-                required={required}
-                error={showErrors && Boolean(errors[name]?.message)}
-                helperText={showErrors && errors[name]?.message}
-                variant="outlined"
-                fullWidth={true}
-                {...props}
-              />}
+            slots={{
+              textField: params =>
+                <TextField {...params}
+                  required={required}
+                  error={showErrors && Boolean(errors[name]?.message)}
+                  helperText={showErrors && errors[name]?.message}
+                  variant="outlined"
+                  fullWidth={true}
+                  {...props}
+                />
+            }}
           />
         </LocalizationProvider>
       )}
