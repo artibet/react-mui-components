@@ -28,6 +28,7 @@ export const MyAutocompleteApiField = React.forwardRef(({
   size = 'medium',
   onChange: onChangeProp = null,
   showErrors = true,
+  readonly = false,
   ...props
 }, ref) => {
 
@@ -64,7 +65,7 @@ export const MyAutocompleteApiField = React.forwardRef(({
   // ---------------------------------------------------------------------------------------
   // Fetch option form existing value on mount
   // ---------------------------------------------------------------------------------------
-  React.useState(() => {
+  React.useEffect(() => {
     if (form.getValues(name)) {
       async function fetch() {
         setLoading(true)
@@ -106,55 +107,66 @@ export const MyAutocompleteApiField = React.forwardRef(({
         disabled: disabled
       }}
       render={({ field: { onChange, onBlur, value } }) => (
-        <Autocomplete
-          value={localValue}
-          options={options}
-          onInputChange={myDebounce(handleInputChange, 300)}
-          onChange={(_, newValue) => {
-            setLocalValue(newValue)
-            onChange(newValue ? newValue[valueKey] : null)
-            onChangeProp && (newValue ? onChangeProp(newValue[valueKey]) : onChangeProp(null))
-          }}
-          isOptionEqualToValue={(option, value) => option[valueKey] === value[valueKey]}
-          getOptionLabel={(option) => option[labelKey]}
-          filterOptions={x => x}
-          noOptionsText={noOptionsText}
-          loadingText={loadingText}
-          loading={loading}
-          required={required}
-          size={size}
-          renderInput={
-            (params) => (
-              <TextField
-                label={label}
-                required={required}
-                disabled={disabled}
-                autoFocus={autofocus}
-                placeholder={placeholder}
-                inputProps={{ maxLength: maxLength }}
-                error={showErrors && Boolean(errors[name]?.message)}
-                onBlur={onBlur}
-                variant="outlined"
-                fullWidth={true}
-                helperText={showErrors && errors[name]?.message}
-                size={size}
-                {...params}
-                {...props}
-              />
-            )
-          }
-          renderOption={
-            (props, option, state) => (
-              renderOption
-                ?
-                renderOption(props, option, state)
-                :
-                <li {...props} key={option[valueKey]}>
-                  {option[labelKey]}
-                </li>
-            )
-          }
-        />
+        readonly
+          ?
+          <TextField
+            size={size}
+            label={label}
+            fullWidth={true}
+            required={required}
+            disabled={readonly}
+            value={localValue ? localValue.label : ''}
+          />
+          :
+          <Autocomplete
+            value={localValue}
+            options={options}
+            onInputChange={myDebounce(handleInputChange, 300)}
+            onChange={(_, newValue) => {
+              setLocalValue(newValue)
+              onChange(newValue ? newValue[valueKey] : null)
+              onChangeProp && (newValue ? onChangeProp(newValue[valueKey]) : onChangeProp(null))
+            }}
+            isOptionEqualToValue={(option, value) => option[valueKey] === value[valueKey]}
+            getOptionLabel={(option) => option[labelKey]}
+            filterOptions={x => x}
+            noOptionsText={noOptionsText}
+            loadingText={loadingText}
+            loading={loading}
+            required={required}
+            size={size}
+            renderInput={
+              (params) => (
+                <TextField
+                  label={label}
+                  required={required}
+                  disabled={disabled}
+                  autoFocus={autofocus}
+                  placeholder={placeholder}
+                  inputProps={{ maxLength: maxLength }}
+                  error={showErrors && Boolean(errors[name]?.message)}
+                  onBlur={onBlur}
+                  variant="outlined"
+                  fullWidth={true}
+                  helperText={showErrors && errors[name]?.message}
+                  size={size}
+                  {...params}
+                  {...props}
+                />
+              )
+            }
+            renderOption={
+              (props, option, state) => (
+                renderOption
+                  ?
+                  renderOption(props, option, state)
+                  :
+                  <li {...props} key={option[valueKey]}>
+                    {option[labelKey]}
+                  </li>
+              )
+            }
+          />
       )}
     />
   )
