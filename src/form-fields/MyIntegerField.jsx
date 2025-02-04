@@ -46,7 +46,7 @@ export const MyIntegerField = ({
         disabled: disabled
       }}
       render={({ field: { onChange, onBlur, value } }) => (
-        <NumberFormat
+        <NumericFormat
           customInput={TextField}
           variant="outlined"
           label={label}
