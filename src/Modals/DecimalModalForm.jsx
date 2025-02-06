@@ -13,6 +13,8 @@ export const DecimalModalForm = ({
   label,
   value,
   decimals = 2,
+  minValue = null,
+  maxValue = null,
   onSubmit,
   onCancel,
   width = 500,
