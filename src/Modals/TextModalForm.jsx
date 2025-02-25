@@ -13,7 +13,7 @@ export const TextModalForm = ({
   value,
   onSubmit,
   onCancel,
-  width = 500,
+  size = 'sm',  // sm, md, lg xl
   required = true,
   requiredMessage = 'Υποχρεωτικό πεδίο',
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
@@ -75,7 +75,7 @@ export const TextModalForm = ({
   // JSX
   // ---------------------------------------------------------------------------------------
   return (
-    <Dialog open={open} onClose={() => { }} onKeyDown={handleKeyDown} disableRestoreFocus >
+    <Dialog fullWidth maxWidth={size} open={open} onClose={() => { }} onKeyDown={handleKeyDown} disableRestoreFocus >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <MyTextField
@@ -85,7 +85,7 @@ export const TextModalForm = ({
           required={required}
           autofocus={true}
           maxLength={maxLength}
-          sx={{ width: width, marginTop: 2, }}
+          sx={{ marginTop: 2, }}
         />
       </DialogContent>
       <DialogActions>

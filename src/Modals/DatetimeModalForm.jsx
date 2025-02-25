@@ -12,7 +12,7 @@ export const DatetimeModalForm = ({
   value,
   onSubmit,
   onCancel,
-  width = 500,
+  size = 'sm',  // sm, md, lg xl
   required = true,
   requiredMessage = 'Υποχρεωτικό πεδίο',
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
@@ -73,7 +73,7 @@ export const DatetimeModalForm = ({
   // JSX
   // ---------------------------------------------------------------------------------------
   return (
-    <Dialog open={open} onClose={() => { }} onKeyDown={handleKeyDown} disableRestoreFocus >
+    <Dialog fullWidth maxWidth={size} open={open} onClose={() => { }} onKeyDown={handleKeyDown} disableRestoreFocus >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <MyDatetimeField
@@ -82,7 +82,7 @@ export const DatetimeModalForm = ({
           label={label}
           required={required}
           autofocus={true}
-          sx={{ width: width, marginTop: 2, }}
+          sx={{ marginTop: 2, }}
         />
       </DialogContent>
       <DialogActions>

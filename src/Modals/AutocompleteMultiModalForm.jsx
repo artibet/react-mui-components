@@ -18,7 +18,7 @@ export const AutocompleteMultiModalForm = ({
   valueKey = 'id',
   labelKey = 'label',
   required = true,
-  width = 500,
+  size = 'sm',  // sm, md, lg xl
   requiredMessage = 'Επιλέξτε τουλάχιστον μία τιμή',
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
   cancelLabel = 'ΑΚΥΡΩΣΗ',
@@ -68,7 +68,7 @@ export const AutocompleteMultiModalForm = ({
   // JSX
   // ---------------------------------------------------------------------------------------
   return (
-    <Dialog open={open} onClose={() => { }} >
+    <Dialog fullWidth maxWidth={size} open={open} onClose={() => { }} >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <MyAutocompleteMultiField
@@ -80,7 +80,7 @@ export const AutocompleteMultiModalForm = ({
           labelKey={labelKey}
           required={required}
           autofocus
-          sx={{ width: width, marginTop: 2, }}
+          sx={{ marginTop: 2, }}
         />
       </DialogContent>
       <DialogActions>

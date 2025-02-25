@@ -14,7 +14,7 @@ export const NotesModalForm = ({
   value,
   onSubmit,
   onCancel,
-  width = 500,
+  size = 'sm',  // sm, md, lg xl
   rows = 5,
   required = false,
   requiredMessage = 'Υποχρεωτικό πεδίο',
@@ -64,7 +64,7 @@ export const NotesModalForm = ({
   // JSX
   // ---------------------------------------------------------------------------------------
   return (
-    <Dialog fullWidth open={open} onClose={() => { }} disableRestoreFocus >
+    <Dialog fullWidth maxWidth={size} open={open} onClose={() => { }} disableRestoreFocus >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         {message && <Typography >{message}</Typography>}

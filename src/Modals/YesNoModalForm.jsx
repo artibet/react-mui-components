@@ -19,7 +19,7 @@ export const YesNoModalForm = ({
   onCancel,
   required = true,
   info = '',
-  width = 500,
+  size = 'sm',  // sm, md, lg xl
   requiredMessage = 'Υποχρεωτικό πεδίο',
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
   cancelLabel = 'ΑΚΥΡΩΣΗ',
@@ -70,7 +70,7 @@ export const YesNoModalForm = ({
   // JSX
   // ---------------------------------------------------------------------------------------
   return (
-    <Dialog fullWidth maxWidth="sm" open={open} onClose={() => { }} >
+    <Dialog fullWidth maxWidth={size} open={open} onClose={() => { }} >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         {info && <Typography>{info}</Typography>}
@@ -90,6 +90,6 @@ export const YesNoModalForm = ({
         <Button color='success' onClick={form.handleSubmit(data => onSubmit(data.field))}>{okLabel}</Button>
         <Button color='error' onClick={() => onCancel()}>{cancelLabel}</Button>
       </DialogActions>
-    </Dialog>
+    </Dialog >
   )
 }

@@ -17,7 +17,7 @@ export const AutocompleteModalForm = ({
   valueKey = 'id',
   labelKey = 'label',
   required = true,
-  width = 500,
+  size = 'sm',  // sm, md, lg xl
   requiredMessage = 'Υποχρεωτικό πεδίο',
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
   cancelLabel = 'ΑΚΥΡΩΣΗ',
@@ -68,7 +68,7 @@ export const AutocompleteModalForm = ({
   // JSX
   // ---------------------------------------------------------------------------------------
   return (
-    <Dialog open={open} onClose={() => { }} >
+    <Dialog fullWidth maxWidth={size} open={open} onClose={() => { }} >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <MyAutocompleteField
@@ -80,7 +80,7 @@ export const AutocompleteModalForm = ({
           labelKey={labelKey}
           required={required}
           autofocus
-          sx={{ width: width, marginTop: 2, }}
+          sx={{ marginTop: 2, }}
         />
       </DialogContent>
       <DialogActions>

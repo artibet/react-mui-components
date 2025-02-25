@@ -17,6 +17,7 @@ export const IntegerModalForm = ({
   allowNegative = false,
   required = true,
   requiredMessage = 'Υποχρεωτικό πεδίο',
+  size = 'sm',  // sm, md, lg xl
   minValue = null,
   maxValue = null,
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
@@ -86,7 +87,7 @@ export const IntegerModalForm = ({
   // JSX
   // ---------------------------------------------------------------------------------------
   return (
-    <Dialog open={open} onClose={() => { }} onKeyDown={handleKeyDown} disableRestoreFocus >
+    <Dialog fullWidth maxWidth={size} open={open} onClose={() => { }} onKeyDown={handleKeyDown} disableRestoreFocus >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <MyIntegerField
@@ -96,7 +97,7 @@ export const IntegerModalForm = ({
           required={required}
           autofocus={true}
           allowNegative={allowNegative}
-          sx={{ width: 500, marginTop: 2, }}
+          sx={{ marginTop: 2, }}
         />
       </DialogContent>
       <DialogActions>

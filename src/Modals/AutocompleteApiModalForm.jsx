@@ -3,55 +3,46 @@ import { Button, Dialog, DialogContent, DialogTitle, DialogActions } from '@mui/
 import { useForm } from 'react-hook-form'
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
-import { MyCurrencyField } from '../form-fields'
-import { formatCurrency, notEmpty } from '../utils'
+import { MyAutocompleteApiField } from '../form-fields'
 
 
-export const CurrencyModalForm = ({
+export const AutocompleteApiModalForm = ({
   open,
   title,
   label,
+  optionsUrl,
   value,
   onSubmit,
   onCancel,
-  size = 'sm',  // sm, md, lg xl
+  valueKey = 'id',
+  labelKey = 'label',
   required = true,
-  minValue = null,
-  maxValue = null,
+  size = 'sm',  // sm, md, lg xl
   requiredMessage = 'Υποχρεωτικό πεδίο',
+  minChars = 1,
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
-  cancelLabel = 'ΑΚΥΡΩΣΗ'
+  cancelLabel = 'ΑΚΥΡΩΣΗ',
 }) => {
 
   // ---------------------------------------------------------------------------------------
   // Default value
   // ---------------------------------------------------------------------------------------
   const defaultValues = {
-    poso: notEmpty(value) ? value : null,
+    field: value || null,
   }
+
 
   // ---------------------------------------------------------------------------------------
   // Validation schema
   // ---------------------------------------------------------------------------------------
   const schema = yup.object({
-    poso: yup
-      .number()
-      .when([], {
-        is: _ => required,
-        then: schema => schema.required(requiredMessage),
-        otherwise: schema => schema.nullable(true)
-      })
-      .when([], {
-        is: _ => minValue !== null,
-        then: schema => schema.min(minValue, `Το ποσό πρέπει να είναι μεγαλύτερο ή ίσο από ${formatCurrency(minValue)}`),
-        otherwise: schema => schema
-
-      })
-      .when([], {
-        is: _ => maxValue !== null,
-        then: schema => schema.max(maxValue, `Το ποσό πρέπει να είναι μικρότερο ή ίσο από ${formatCurrency(maxValue)}`),
-        otherwise: schema => schema
-      })
+    field: required
+      ? yup
+        .string()
+        .required(requiredMessage)
+      : yup
+        .string()
+        .nullable()
   })
 
   // ---------------------------------------------------------------------------------------
@@ -59,23 +50,14 @@ export const CurrencyModalForm = ({
   // ---------------------------------------------------------------------------------------
   const form = useForm({ defaultValues, resolver: yupResolver(schema) })
 
-  // ---------------------------------------------------------------
-  // submit on key down
-  // ---------------------------------------------------------------
-  const handleKeyDown = e => {
-    if (e.code === 'Enter' || e.code === 'NumpadEnter') {
-      e.preventDefault()
-      form.handleSubmit(data => onSubmit(data.poso))()
-    }
-  }
 
   // ---------------------------------------------------------------------------------------
-  // Reset text value
+  // Reset textfield value
   // ---------------------------------------------------------------------------------------
   React.useEffect(() => {
     if (open) {
       form.clearErrors()
-      form.setValue('poso', notEmpty(value) ? value : null, {
+      form.setValue('field', value, {
         shouldValidate: false,
         shouldDirty: false,
         shouldTouch: false
@@ -87,20 +69,24 @@ export const CurrencyModalForm = ({
   // JSX
   // ---------------------------------------------------------------------------------------
   return (
-    <Dialog fullWidth maxWidth={size} open={open} onClose={() => { }} onKeyDown={handleKeyDown} disableRestoreFocus >
+    <Dialog fullWidth maxWidth={size} open={open} onClose={() => { }} >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
-        <MyCurrencyField
+        <MyAutocompleteApiField
           form={form}
-          name='poso'
+          name='field'
           label={label}
+          optionsUrl={optionsUrl}
+          minChars={minChars}
+          valueKey={valueKey}
+          labelKey={labelKey}
           required={required}
-          autofocus={true}
+          autofocus
           sx={{ marginTop: 2, }}
         />
       </DialogContent>
       <DialogActions>
-        <Button color='success' onClick={form.handleSubmit(data => onSubmit(data.poso))}>{okLabel}</Button>
+        <Button color='success' onClick={form.handleSubmit(onSubmit)}>{okLabel}</Button>
         <Button color='error' onClick={() => onCancel()}>{cancelLabel}</Button>
       </DialogActions>
     </Dialog>
