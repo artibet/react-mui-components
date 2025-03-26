@@ -17,7 +17,7 @@ export const parseDate = (isoDate) => {
 // ---------------------------------------------------------------------
 export const formatDate = (isoDate, delimeter = '/') => {
   if (!isoDate) return '';
-  return format(parseISO(isoDate), `dd${delimeter}MM${delimeter}yyyy`);
+  return format(parseISO(isoDate, {locale: el}), `dd${delimeter}MM${delimeter}yyyy`);
 }
 
 // ---------------------------------------------------------------------
