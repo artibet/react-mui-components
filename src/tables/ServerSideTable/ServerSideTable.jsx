@@ -1,4 +1,4 @@
-import { Box, Table, TableBody, TableContainer, TableHead, TablePagination, } from '@mui/material'
+import { Box, Table, TableBody, TableContainer, TableHead, TablePagination, useMediaQuery, useTheme, } from '@mui/material'
 import React from 'react'
 import GlobalFilter from './GlobalFilter'
 import { useLoader } from '../../hooks'
@@ -376,9 +376,20 @@ export const ServerSideTable = React.forwardRef(({
       <TableContext.Provider value={contextData}>
 
         {/* Title, globalFilter, createButton, globalActions */}
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 1 }}>
+        <Box sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          justifyContent: { xs: 'top', md: 'space-between' },
+          alignItems: { xs: 'left', md: 'center' },
+          marginBottom: 1
+        }}>
           <Title />
-          <Box sx={{ display: 'flex', gap: 2, justifyContent: 'end', alignItems: 'center' }}>
+          <Box sx={{
+            display: 'flex', gap: 2,
+            justifyContent: 'end',
+            alignItems: 'center',
+            marginTop: { xs: 2, md: 0 }
+          }}>
             <GlobalFilter />
             <CreateButton />
             <GlobalActions />
