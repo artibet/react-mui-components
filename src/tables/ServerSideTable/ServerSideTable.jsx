@@ -1,4 +1,4 @@
-import { Box, Table, TableBody, TableContainer, TableHead, TablePagination, useMediaQuery, useTheme, } from '@mui/material'
+import { Box, Table, TableBody, TableContainer, TableFooter, TableHead, TablePagination, useMediaQuery, useTheme, } from '@mui/material'
 import React from 'react'
 import GlobalFilter from './GlobalFilter'
 import { useLoader } from '../../hooks'
@@ -10,6 +10,7 @@ import axios from 'axios'
 import { Row } from './Row'
 import { defaultColumnValues } from './defaultColumnValues'
 import { TableContext } from './TableContext'
+import Footer from './Footer'
 
 // ---------------------------------------------------------------------------------------
 // Default pagination
@@ -407,7 +408,7 @@ export const ServerSideTable = React.forwardRef(({
                 <Row key={rowKey === '__index__' ? index : row[rowKey]} row={row} />
               ))}
             </TableBody>
-
+            <Footer footer={data?.footer} />
           </Table>
         </TableContainer>
       </TableContext.Provider>
