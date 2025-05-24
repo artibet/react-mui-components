@@ -7,9 +7,12 @@ import { MyTextField, MyUploadField } from '../form-fields'
 
 export const SelectFileModalForm = ({
   open,
-  onSubmit,
+  title = 'Νέο Αρχείο',
   description = true,
+  descriptionLabel = 'Περιγραφή Αρχείου',
+  fileSelectLabel = 'Επιλογή Αρχείου',
   maxFileName = 255,
+  onSubmit,
   onCancel }) => {
 
   // ---------------------------------------------------------------------------------------
@@ -56,7 +59,7 @@ export const SelectFileModalForm = ({
   // ---------------------------------------------------------------
   return (
     <Dialog maxWidth='sm' fullWidth open={open} onClose={() => { }} >
-      <DialogTitle>Νέο Αρχείο</DialogTitle>
+      <DialogTitle>{title}</DialogTitle>
       <DialogContent>
 
         <Stack sx={{ marginTop: 2 }} gap={3}>
@@ -66,7 +69,7 @@ export const SelectFileModalForm = ({
             <MyTextField
               form={form}
               name='descr'
-              label='Περιγραφή Αρχείου'
+              label={descriptionLabel}
               required
               autofocus
             />
@@ -75,7 +78,7 @@ export const SelectFileModalForm = ({
           <MyUploadField
             form={form}
             name='filename'
-            label='Επιλογή Αρχείου'
+            label={fileSelectLabel}
             required
           />
 
