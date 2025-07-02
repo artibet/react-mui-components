@@ -82,8 +82,10 @@ export const MyAutocompleteApiField = React.forwardRef(({
   // fetch function
   // ---------------------------------------------------------------------------------------
   const fetchOptions = async (id, token) => {
+    if (!token) setOptions([])
+    if (token.length < minChars) return
     setLoading(true)
-    const response = await axios.get(`${optionsUrl}?id=${id ? id : ''}&&token=${token ? token : ''}`)
+    const response = await axios.get(`${optionsUrl}?id=${id ? id : ''}&token=${token ? token : ''}`)
     setOptions(response.data)
     setLoading(false)
   }
