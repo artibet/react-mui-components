@@ -15,6 +15,10 @@ export const MyAutocompleteField = ({
   autofocus = false,
   noOptionsText = 'Δεν υπάρχουν επιλογές',
   showErrors = true,
+  size = 'small',
+  readonly = false,
+  readonlyBackgroundColor = '#dddddd',
+  bold = false,
   ...props
 }) => {
 
@@ -40,7 +44,6 @@ export const MyAutocompleteField = ({
   // ---------------------------------------------------------------------------------------
   // JSX
   // ---------------------------------------------------------------------------------------
-
   return (
     <Controller
       name={name}
@@ -50,33 +53,57 @@ export const MyAutocompleteField = ({
         disabled: disabled
       }}
       render={({ field: { onChange, onBlur, value } }) => (
-        <Autocomplete
-          value={localValue}
-          required={required}
-          onChange={(_, newValue) => onChange(newValue ? newValue[valueKey] : null)}
-          options={options}
-          isOptionEqualToValue={(option, value) => option[valueKey] === value[valueKey]}
-          noOptionsText={noOptionsText}
-          getOptionLabel={(option) => option[labelKey]}
-          renderInput={
-            (params) => (
-              <TextField
-                label={label}
-                required={required}
-                disabled={disabled}
-                autoFocus={autofocus}
-                inputProps={{ maxLength: maxLength }}
-                error={showErrors && Boolean(errors[name]?.message)}
-                onBlur={onBlur}
-                variant="outlined"
-                fullWidth={true}
-                helperText={showErrors && errors[name]?.message}
-                {...params}
-                {...props}
-              />
-            )
-          }
-        />
+        readonly
+          ?
+          <TextField
+            size={size}
+            label={label}
+            fullWidth={true}
+            required={required}
+            slotProps={{
+              input: {
+                maxLength: maxLength,
+                readOnly: readonly,
+                sx: { fontWeight: bold ? 'bold' : '', backgroundColor: readonly ? readonlyBackgroundColor : '' }
+              }
+            }}
+            value={localValue ? localValue.label : ''}
+          />
+          :
+          <Autocomplete
+            value={localValue}
+            required={required}
+            onChange={(_, newValue) => onChange(newValue ? newValue[valueKey] : null)}
+            options={options}
+            isOptionEqualToValue={(option, value) => option[valueKey] === value[valueKey]}
+            noOptionsText={noOptionsText}
+            getOptionLabel={(option) => option[labelKey]}
+            size={size}
+            slotProps={{
+              input: {
+                maxLength: maxLength,
+                sx: { fontWeight: bold ? 'bold' : '', color: 'red' }
+              }
+            }}
+            renderInput={
+              (params) => (
+                <TextField
+                  label={label}
+                  required={required}
+                  disabled={disabled}
+                  autoFocus={autofocus}
+                  size={size}
+                  error={showErrors && Boolean(errors[name]?.message)}
+                  onBlur={onBlur}
+                  variant="outlined"
+                  fullWidth={true}
+                  helperText={showErrors && errors[name]?.message}
+                  {...params}
+                  {...props}
+                />
+              )
+            }
+          />
       )}
     />
   )

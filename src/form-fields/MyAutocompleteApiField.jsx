@@ -29,6 +29,8 @@ export const MyAutocompleteApiField = React.forwardRef(({
   onChange: onChangeProp = null,
   showErrors = true,
   readonly = false,
+  readonlyBackgroundColor = '#dddddd',
+  bold = false,
   ...props
 }, ref) => {
 
@@ -116,7 +118,13 @@ export const MyAutocompleteApiField = React.forwardRef(({
             label={label}
             fullWidth={true}
             required={required}
-            disabled={readonly}
+            slotProps={{
+              input: {
+                maxLength: maxLength,
+                readOnly: readonly,
+                sx: { fontWeight: bold ? 'bold' : '', backgroundColor: readonly ? readonlyBackgroundColor : '' }
+              }
+            }}
             value={localValue ? localValue.label : ''}
           />
           :
@@ -145,13 +153,13 @@ export const MyAutocompleteApiField = React.forwardRef(({
                   disabled={disabled}
                   autoFocus={autofocus}
                   placeholder={placeholder}
-                  inputProps={{ maxLength: maxLength }}
                   error={showErrors && Boolean(errors[name]?.message)}
                   onBlur={onBlur}
                   variant="outlined"
                   fullWidth={true}
                   helperText={showErrors && errors[name]?.message}
                   size={size}
+                  maxLength={maxLength}
                   {...params}
                   {...props}
                 />

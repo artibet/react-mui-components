@@ -12,6 +12,9 @@ export const MyCurrencyField = ({
   disabled = false,
   autofocus = false,
   showErrors = true,
+  readonly = false,
+  readonlyBackgroundColor = '#dddddd',
+  bold = false,
   ...props
 }) => {
 
@@ -61,6 +64,12 @@ export const MyCurrencyField = ({
           error={showErrors && Boolean(errors[name]?.message)}
           helperText={showErrors && errors[name]?.message}
           fullWidth
+          slotProps={{
+            input: {
+              readOnly: readonly,
+              sx: { fontWeight: bold ? 'bold' : '', backgroundColor: readonly ? readonlyBackgroundColor : '' }
+            }
+          }}
           {...props}
         />
       )}
