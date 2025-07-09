@@ -83,6 +83,7 @@ export const YesNoModalForm = ({
           labelKey='label'
           required={required}
           autofocus
+          size='medium'
           sx={{ marginTop: 2, }}
         />
       </DialogContent>
