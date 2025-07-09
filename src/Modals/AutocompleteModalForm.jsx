@@ -80,6 +80,7 @@ export const AutocompleteModalForm = ({
           labelKey={labelKey}
           required={required}
           autofocus
+          size='medium'
           sx={{ marginTop: 2, }}
         />
       </DialogContent>
