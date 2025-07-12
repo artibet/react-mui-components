@@ -50,7 +50,7 @@ export const DecimalModalForm = ({
       })
       .when([], {
         is: _ => maxValue !== null,
-        then: schema => schema.max(maxValue, `Η τιμή πρέπει να είναι μικρότερη ή ίση από ${formatDecimal(maxValue, decimals)}`),
+        then: schema => schema.max(maxValue, `Η τιμή πρέπει να είναι μικρότερη ή ίση από ${formatFloat(maxValue, decimals)}`),
         otherwise: schema => schema
       })
   })
