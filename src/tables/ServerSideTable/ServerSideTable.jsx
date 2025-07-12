@@ -1,4 +1,4 @@
-import { Box, Table, TableBody, TableContainer, TableFooter, TableHead, TablePagination, useMediaQuery, useTheme, } from '@mui/material'
+import { Box, Table, TableBody, TableContainer, TableHead, TablePagination } from '@mui/material'
 import React from 'react'
 import GlobalFilter from './GlobalFilter'
 import { useLoader } from '../../hooks'
