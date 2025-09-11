@@ -143,7 +143,9 @@ export const ServerSideTable = React.forwardRef(({
         return { ...prevData, data: newData }
       })
     },
-    refresh: () => fetchData(pageIndex, pageSize, sorting, globalFilter, columnFilters)
+    refresh: () => fetchData(pageIndex, pageSize, sorting, globalFilter, columnFilters),
+    globalFilter: () => globalFilter,
+    columnFilters: () => columnFilters
   }))
 
   // ---------------------------------------------------------------------------------------
