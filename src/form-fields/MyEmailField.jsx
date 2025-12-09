@@ -6,6 +6,7 @@ export const MyEmailField = ({
   form,
   name = 'email',
   label = 'E-mail',
+  maxLength = 255,
   required = true,
   disabled = false,
   autofocus = false,
