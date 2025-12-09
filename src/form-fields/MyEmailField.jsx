@@ -10,6 +10,9 @@ export const MyEmailField = ({
   disabled = false,
   autofocus = false,
   showErrors = true,
+  readonly = false,
+  readonlyBackgroundColor = '#dddddd',
+  bold = false,
   ...props
 }) => {
 
@@ -43,6 +46,13 @@ export const MyEmailField = ({
           variant="outlined"
           disabled={disabled}
           autoFocus={autofocus}
+          slotProps={{
+            input: {
+              maxLength: maxLength,
+              readOnly: readonly,
+              sx: { fontWeight: bold ? 'bold' : '', backgroundColor: readonly ? readonlyBackgroundColor : '' }
+            }
+          }}
           {...props}
         />
       )}
