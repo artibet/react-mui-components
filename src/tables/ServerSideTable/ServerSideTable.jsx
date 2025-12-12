@@ -57,7 +57,10 @@ export const ServerSideTable = React.forwardRef(({
   filterActiveColor = '#D4F7F4',
   filterInactiveColor = 'white',
   defaultSorting = [],
-  initialPageSize = defaultPageSize
+  initialPageSize = defaultPageSize,
+  rowsPerPageLabel = 'Εγγραφές ανά σελίδα',
+  fromLabel = 'από',
+  toLabel = 'έως',
 }, ref) => {
 
   // ---------------------------------------------------------------------------------------
@@ -427,8 +430,8 @@ export const ServerSideTable = React.forwardRef(({
         rowsPerPage={data.page_size}
         onPageChange={(e, page) => handlePageIndexChange(page)}
         onRowsPerPageChange={e => handlePageSizeChange(e.target.value)}
-        labelDisplayedRows={props => `${props.from} έως ${props.to} από ${props.count}`}
-        labelRowsPerPage='Εγγραφές ανά σελίδα'
+        labelDisplayedRows={props => `${props.from} ${toLabel} ${props.to} ${fromLabel} ${props.count}`}
+        labelRowsPerPage={rowsPerPageLabel}
       />
     </>
   )
