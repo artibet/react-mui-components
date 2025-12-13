@@ -17,6 +17,7 @@ export const EmailModalForm = ({
   size = 'sm',  // sm, md, lg xl
   required = true,
   requiredMessage = 'Υποχρεωτικό πεδίο',
+  invalidMessage = 'Μη έγκυρη μορφή email',
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
   cancelLabel = 'ΑΚΥΡΩΣΗ',
   maxLength = 255,
@@ -36,11 +37,11 @@ export const EmailModalForm = ({
     email: required
       ? yup
         .string()
-        .matches(emailRegEx, 'Μη έγκυρη μορφή Email')
+        .matches(emailRegEx, invalidMessage)
         .required(requiredMessage)
       : yup
         .string()
-        .matches(emailRegEx, 'Μη έγκυρη μορφή Email')
+        .matches(emailRegEx, invalidMessage)
   })
 
   // ---------------------------------------------------------------------------------------
