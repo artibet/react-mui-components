@@ -17,13 +17,14 @@ export const parseDate = (isoDate) => {
 // ---------------------------------------------------------------------
 export const formatDate = (isoDate, delimeter = '/') => {
   if (!isoDate) return '';
-  return format(parseISO(isoDate, {locale: el}), `dd${delimeter}MM${delimeter}yyyy`);
+  return format(parseISO(isoDate, { locale: el }), `dd${delimeter}MM${delimeter}yyyy`);
 }
 
 // ---------------------------------------------------------------------
 // Format iso date into HH:Mm
 // ---------------------------------------------------------------------
 export const formatTime = (isoDate) => {
+  if (!isoDate) return '';
   return format(parseISO(isoDate, { locale: el }), 'HH:mm');
 }
 
