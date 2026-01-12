@@ -21,7 +21,25 @@ export const EmailModalForm = ({
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
   cancelLabel = 'ΑΚΥΡΩΣΗ',
   maxLength = 255,
+  message = null
 }) => {
+
+  // ---------------------------------------------------------------------------------------
+  // Render message helper function
+  // ---------------------------------------------------------------------------------------
+  const renderMessage = () => {
+    if (!message) return null
+
+    if (typeof message === 'string') {
+      return (
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+          {message}
+        </Typography>
+      )
+    }
+
+    return <Box sx={{ mb: 2 }}>{message}</Box>;
+  }
 
   // ---------------------------------------------------------------------------------------
   // Default value
@@ -80,6 +98,7 @@ export const EmailModalForm = ({
     <Dialog fullWidth maxWidth={size} open={open} onClose={() => { }} onKeyDown={handleKeyDown} disableRestoreFocus>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
+        {renderMessage()}
         <MyEmailField
           form={form}
           label={label}
