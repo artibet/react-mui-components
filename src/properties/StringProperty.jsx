@@ -1,20 +1,20 @@
 import React from 'react'
 import { Button, Chip, Divider, Grid2, ListItem, Stack, Typography } from '@mui/material'
 import { router } from '@inertiajs/react'
-import { NotesModalForm } from '@artibet/react-mui-components/modals'
 import { Edit, ErrorOutline } from '@mui/icons-material'
+import { TextModalForm } from '../Modals'
 
-export const TextProperty = ({
+export const StringProperty = ({
   label,
   value,
   render = null,
   fieldName = null,
   editable = false,
   required = true,
-  placeholder = '', // When not required and is empty
+  placeholder = '',
   modalTitle = 'Επεξεργασία',
   updateUrl = null,
-  rows = 5,
+  maxLength = 255,
   message = null,
   hasDivider = true
 }) => {
@@ -103,13 +103,13 @@ export const TextProperty = ({
 
       {hasDivider && <Divider component='li' />}
 
-      <NotesModalForm
+      <TextModalForm
         open={showForm}
         title={modalTitle}
         label={label}
         value={value}
         required={required}
-        rows={rows}
+        maxLength={maxLength}
         onSubmit={handleSubmit}
         onCancel={() => setShowForm(false)}
         message={message}

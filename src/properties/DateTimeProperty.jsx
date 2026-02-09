@@ -1,20 +1,20 @@
 import React from 'react'
 import { Button, Chip, Divider, Grid2, ListItem, Stack, Typography } from '@mui/material'
 import { router } from '@inertiajs/react'
-import { NotesModalForm } from '@artibet/react-mui-components/modals'
+import { DatetimeModalForm } from '@artibet/react-mui-components/modals'
 import { Edit, ErrorOutline } from '@mui/icons-material'
+import { formatDateTime } from '@artibet/react-mui-components/utils'
 
-export const TextProperty = ({
+export const DateTimeProperty = ({
   label,
   value,
   render = null,
   fieldName = null,
   editable = false,
   required = true,
-  placeholder = '', // When not required and is empty
+  placeholder = '',
   modalTitle = 'Επεξεργασία',
   updateUrl = null,
-  rows = 5,
   message = null,
   hasDivider = true
 }) => {
@@ -72,7 +72,7 @@ export const TextProperty = ({
             ) : (
               render ||
               <Typography variant="body1" fontWeight={500}>
-                {value ? value : placeholder}
+                {value ? formatDateTime(value) : placeholder}
               </Typography>
             )}
           </Grid2>
@@ -103,17 +103,17 @@ export const TextProperty = ({
 
       {hasDivider && <Divider component='li' />}
 
-      <NotesModalForm
+      <DatetimeModalForm
         open={showForm}
         title={modalTitle}
         label={label}
         value={value}
         required={required}
-        rows={rows}
         onSubmit={handleSubmit}
         onCancel={() => setShowForm(false)}
         message={message}
       />
+
     </>
   )
 }

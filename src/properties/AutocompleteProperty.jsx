@@ -1,20 +1,20 @@
 import React from 'react'
 import { Button, Chip, Divider, Grid2, ListItem, Stack, Typography } from '@mui/material'
 import { router } from '@inertiajs/react'
-import { NotesModalForm } from '@artibet/react-mui-components/modals'
 import { Edit, ErrorOutline } from '@mui/icons-material'
+import { AutocompleteModalForm } from '@artibet/react-mui-components/modals'
 
-export const TextProperty = ({
+export const AutocompleteProperty = ({
   label,
   value,
   render = null,
+  options = [],
   fieldName = null,
   editable = false,
   required = true,
-  placeholder = '', // When not required and is empty
+  placeholder = '',
   modalTitle = 'Επεξεργασία',
   updateUrl = null,
-  rows = 5,
   message = null,
   hasDivider = true
 }) => {
@@ -23,7 +23,9 @@ export const TextProperty = ({
   // State
   // ---------------------------------------------------------------------------------------
   const [showForm, setShowForm] = React.useState(false)
-  const isMissing = !value && required
+  const isMissing = value == null && required
+  const selectedItem = options.find(item => item.id === value);
+  const valueLabel = selectedItem ? selectedItem.label : ''
 
   // ---------------------------------------------------------------------------------------
   // Submit handler
@@ -31,7 +33,7 @@ export const TextProperty = ({
   const handleSubmit = data => {
     router.put(updateUrl, {
       field: fieldName,
-      value: data
+      value: data.field
     }, {
       preserveScroll: true
     })
@@ -55,7 +57,7 @@ export const TextProperty = ({
 
           {/* 2. Value Column (with Missing state handling) */}
           <Grid2 size={{ xs: 12, sm: 6 }}>
-            {required && !value ? (
+            {required && value == null ? (
               <Stack direction="row" spacing={1} alignItems="center">
                 <Typography variant="body1" color="error.main" fontWeight={600}>
                   Δεν έχει καταχωρηθεί
@@ -72,7 +74,7 @@ export const TextProperty = ({
             ) : (
               render ||
               <Typography variant="body1" fontWeight={500}>
-                {value ? value : placeholder}
+                {valueLabel ? valueLabel : placeholder}
               </Typography>
             )}
           </Grid2>
@@ -93,7 +95,7 @@ export const TextProperty = ({
                   minWidth: '120px'
                 }}
               >
-                {!value ? 'Συμπλήρωση' : 'Επεξεργασία'}
+                {value == null ? 'Συμπλήρωση' : 'Επεξεργασία'}
               </Button>
             )}
           </Grid2>
@@ -103,13 +105,13 @@ export const TextProperty = ({
 
       {hasDivider && <Divider component='li' />}
 
-      <NotesModalForm
+      <AutocompleteModalForm
         open={showForm}
         title={modalTitle}
         label={label}
         value={value}
+        options={options}
         required={required}
-        rows={rows}
         onSubmit={handleSubmit}
         onCancel={() => setShowForm(false)}
         message={message}

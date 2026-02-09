@@ -1,1 +1,5 @@
+export * from './StringProperty'
+export * from './EmailProperty'
+export * from './DateTimeProperty'
 export * from './TextProperty'
+export * from './AutocompleteProperty'
