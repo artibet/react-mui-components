@@ -22,6 +22,7 @@ export const ToggleProperty = ({
   // State
   // ---------------------------------------------------------------------------------------
   const [showConfirm, setShowConfirm] = React.useState(false)
+  const [isLoading, setIsLoading] = React.useState(false)
 
   // ---------------------------------------------------------------------------------------
   // Submit handler
