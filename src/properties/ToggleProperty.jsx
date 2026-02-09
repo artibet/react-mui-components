@@ -28,7 +28,7 @@ export const ToggleProperty = ({
   // Submit handler
   // ---------------------------------------------------------------------------------------
   const handleSubmit = () => {
-    const [isLoading, setIsLoading] = React.useState(false)
+    setIsLoading(true)
     setShowConfirm(false)
     router.put(updateUrl, {
       field: fieldName,
