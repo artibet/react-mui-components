@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Chip, Divider, Grid2, ListItem, Stack, Typography } from '@mui/material'
+import { Button, Chip, CircularProgress, Divider, Grid2, ListItem, Stack, Typography } from '@mui/material'
 import { router } from '@inertiajs/react'
 import { Edit, ErrorOutline } from '@mui/icons-material'
 import { AutocompleteModalForm } from '../Modals'
@@ -26,18 +26,21 @@ export const AutocompleteProperty = ({
   const isMissing = value == null && required
   const selectedItem = options.find(item => item.id === value);
   const valueLabel = selectedItem ? selectedItem.label : ''
+  const [isLoading, setIsLoading] = React.useState(false)
 
   // ---------------------------------------------------------------------------------------
   // Submit handler
   // ---------------------------------------------------------------------------------------
   const handleSubmit = data => {
+    setIsLoading(true)
+    setShowForm(false)
     router.put(updateUrl, {
       field: fieldName,
       value: data.field
     }, {
-      preserveScroll: true
+      preserveScroll: true,
+      onFinish: () => setIsLoading(false)
     })
-    setShowForm(false)
   }
 
   // ---------------------------------------------------------------------------------------
@@ -86,7 +89,7 @@ export const AutocompleteProperty = ({
                 size="small"
                 variant={isMissing ? "contained" : "outlined"}
                 color={isMissing ? "error" : "primary"}
-                startIcon={<Edit fontSize="small" />}
+                startIcon={isLoading ? null : <Edit fontSize="small" />}
                 onClick={() => setShowForm(true)}
                 sx={{
                   borderRadius: 2,
@@ -95,7 +98,13 @@ export const AutocompleteProperty = ({
                   minWidth: '120px'
                 }}
               >
-                {value == null ? 'Συμπλήρωση' : 'Επεξεργασία'}
+                {
+                  isLoading ? (
+                    <CircularProgress size={20} sx={{ color: 'inherit' }} />
+                  ) : (
+                    !value ? 'Συμπλήρωση' : 'Επεξεργασία'
+                  )
+                }
               </Button>
             )}
           </Grid2>

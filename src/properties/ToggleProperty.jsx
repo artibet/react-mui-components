@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Divider, Grid2, ListItem, Typography } from '@mui/material'
+import { Button, CircularProgress, Divider, Grid2, ListItem, Typography } from '@mui/material'
 import { router } from '@inertiajs/react'
 import { ToggleOff, ToggleOn } from '@mui/icons-material'
 import { ConfirmationDialog } from '../Modals'
@@ -27,13 +27,16 @@ export const ToggleProperty = ({
   // Submit handler
   // ---------------------------------------------------------------------------------------
   const handleSubmit = () => {
+    const [isLoading, setIsLoading] = React.useState(false)
+    setShowConfirm(false)
     router.put(updateUrl, {
       field: fieldName,
       value: value ? 0 : 1
     }, {
-      preserveScroll: true
+      preserveScroll: true,
+      onFinish: () => setIsLoading(false)
     })
-    setShowConfirm(false)
+
   }
 
   // ---------------------------------------------------------------------------------------
@@ -63,7 +66,7 @@ export const ToggleProperty = ({
                 size="small"
                 variant='outlined'
                 color={value ? 'error' : 'success'}
-                startIcon={value ? <ToggleOff fontSize='small' /> : <ToggleOn fontSize='small' />}
+                startIcon={isLoading ? null : value ? <ToggleOff fontSize='small' /> : <ToggleOn fontSize='small' />}
                 onClick={() => setShowConfirm(true)}
                 sx={{
                   borderRadius: 2,
@@ -72,7 +75,13 @@ export const ToggleProperty = ({
                   minWidth: '120px'
                 }}
               >
-                {value ? deactivationLabel : activationLabel}
+                {
+                  isLoading ? (
+                    <CircularProgress size={20} sx={{ color: 'inherit' }} />
+                  ) : (
+                    value ? deactivationLabel : activationLabel
+                  )
+                }
               </Button>
             )}
           </Grid2>
