@@ -1,9 +1,9 @@
 import React from 'react'
 import { Button, Chip, Divider, Grid2, ListItem, Stack, Typography } from '@mui/material'
 import { router } from '@inertiajs/react'
-import { DatetimeModalForm } from '@artibet/react-mui-components/modals'
+import { DatetimeModalForm } from '../Modals'
 import { Edit, ErrorOutline } from '@mui/icons-material'
-import { formatDateTime } from '@artibet/react-mui-components/utils'
+import { formatDateTime } from '../utils/dates'
 
 export const DateTimeProperty = ({
   label,

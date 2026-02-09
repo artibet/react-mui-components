@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Chip, Divider, Grid2, ListItem, Stack, Typography } from '@mui/material'
 import { router } from '@inertiajs/react'
 import { Edit, ErrorOutline } from '@mui/icons-material'
-import { EmailModalForm, TextModalForm } from '../Modals'
+import { EmailModalForm } from '../Modals'
 
 export const EmailProperty = ({
   label,
