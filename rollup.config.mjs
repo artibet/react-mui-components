@@ -223,5 +223,36 @@ export default [
         extensions: ['.css']
       })
     ]
+  },
+
+  // properties
+  {
+    input: "src/properties/index.js",
+    output: [
+      {
+        dir: './properties',
+        format: "esm",
+        sourcemap: false
+      },
+    ],
+    plugins: [
+      // replace({
+      //   "process.env.NODE_ENV": JSON.stringify(NODE_ENV)
+      // }),
+      peerDepsExternal(),
+      resolve({
+        extensions: ['.js', '.jsx'],
+
+      }),
+      babel({
+        presets: ["@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"],
+        exclude: ["node_modules/**", "dist/**", "hooks/**"]
+      }),
+      commonjs(),
+      terser(),
+      postcss({
+        extensions: ['.css']
+      })
+    ]
   }
 ]
