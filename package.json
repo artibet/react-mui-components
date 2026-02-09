@@ -50,7 +50,8 @@
     "modals",
     "form-fields",
     "tables",
-    "inertiajs"
+    "inertiajs",
+    "properties"
   ],
   "devDependencies": {
     "@babel/core": "^7.26.0",
