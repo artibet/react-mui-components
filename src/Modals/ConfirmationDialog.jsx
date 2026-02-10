@@ -7,7 +7,8 @@ import {
   DialogContentText,
   DialogTitle,
   Box,
-  Zoom
+  Zoom,
+  CircularProgress
 } from '@mui/material';
 import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded';
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
@@ -21,6 +22,7 @@ export const ConfirmationDialog = ({
   onCancel,
   confirmText = 'ΕΠΙΒΕΒΑΙΩΣΗ',
   cancelText = 'ΑΚΥΡΩΣΗ',
+  isLoading = false,
   type = 'warning' // warning | error | success
 }) => {
 
@@ -118,7 +120,13 @@ export const ConfirmationDialog = ({
             py: 1
           }}
         >
-          {confirmText}
+          {
+            isLoading ? (
+              <CircularProgress size={20} sx={{ color: 'inherit' }} />
+            ) : (
+              confirmText
+            )
+          }
         </Button>
       </DialogActions>
     </Dialog>
