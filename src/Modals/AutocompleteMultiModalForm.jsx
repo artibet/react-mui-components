@@ -132,7 +132,7 @@ export const AutocompleteMultiModalForm = ({
             labelKey={labelKey}
             required={required}
             autofocus
-            sx={{ marginTop: 2, }}
+            sx={{ marginTop: 1, }}
           />
         </DialogContent>
 

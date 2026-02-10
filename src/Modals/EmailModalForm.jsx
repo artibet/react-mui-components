@@ -130,7 +130,7 @@ export const EmailModalForm = ({
             required={required}
             autofocus={true}
             maxLength={maxLength}
-            sx={{ marginTop: 2, }}
+            sx={{ marginTop: 1, }}
           />
         </DialogContent>
 
