@@ -13,7 +13,9 @@ export const SelectFileModalForm = ({
   fileSelectLabel = 'Επιλογή Αρχείου',
   maxFileName = 255,
   onSubmit,
-  onCancel }) => {
+  onCancel,
+  isLoading = false
+}) => {
 
   // ---------------------------------------------------------------------------------------
   // Default values

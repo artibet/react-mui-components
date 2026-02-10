@@ -22,6 +22,7 @@ export const AutocompleteMultiModalForm = ({
   requiredMessage = 'Επιλέξτε τουλάχιστον μία τιμή',
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
   cancelLabel = 'ΑΚΥΡΩΣΗ',
+  isLoading = false
 }) => {
 
   // ---------------------------------------------------------------------------------------

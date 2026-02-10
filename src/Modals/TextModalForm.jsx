@@ -1,9 +1,10 @@
 import React from 'react'
-import { Button, Dialog, DialogContent, DialogTitle, DialogActions, Typography, Box } from '@mui/material'
+import { Button, Dialog, DialogContent, DialogTitle, DialogActions, Typography, Box, CircularProgress, Stack } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { MyTextField } from '../form-fields'
+import { EditNoteRounded } from '@mui/icons-material'
 
 
 export const TextModalForm = ({
@@ -19,25 +20,9 @@ export const TextModalForm = ({
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
   cancelLabel = 'ΑΚΥΡΩΣΗ',
   maxLength = 255,
-  message = null
+  message = null,
+  isLoading = false
 }) => {
-
-  // ---------------------------------------------------------------------------------------
-  // Render message helper function
-  // ---------------------------------------------------------------------------------------
-  const renderMessage = () => {
-    if (!message) return null
-
-    if (typeof message === 'string') {
-      return (
-        <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
-          {message}
-        </Typography>
-      )
-    }
-
-    return <Box sx={{ mb: 2 }}>{message}</Box>;
-  }
 
   // ---------------------------------------------------------------------------------------
   // Default value
@@ -65,52 +50,99 @@ export const TextModalForm = ({
   // ---------------------------------------------------------------------------------------
   const form = useForm({ defaultValues, resolver: yupResolver(schema) })
 
-  // ---------------------------------------------------------------
-  // submit on key down
-  // ---------------------------------------------------------------
-  const handleKeyDown = e => {
-    if (e.code === 'Enter' || e.code === 'NumpadEnter') {
-      e.preventDefault()
-      form.handleSubmit(data => onSubmit(data.text))()
-    }
-  }
-
   // ---------------------------------------------------------------------------------------
   // Reset text value
   // ---------------------------------------------------------------------------------------
   React.useEffect(() => {
     if (open) {
-      form.clearErrors()
-      form.setValue('text', value || '', {
-        shouldValidate: false,
-        shouldDirty: false,
-        shouldTouch: false
-      })
+      form.reset(defaultValues);
+      form.clearErrors();
     }
   }, [open, value])
+
+  // ---------------------------------------------------------------------------------------
+  // Cancel handler
+  // ---------------------------------------------------------------------------------------
+  const handleCancel = (e) => {
+    if (e) e.currentTarget.blur();
+    onCancel();
+  };
 
   // ---------------------------------------------------------------------------------------
   // JSX
   // ---------------------------------------------------------------------------------------
   return (
     <Dialog fullWidth maxWidth={size} open={open} onClose={() => { }} onKeyDown={handleKeyDown} disableRestoreFocus >
-      <DialogTitle>{title}</DialogTitle>
-      <DialogContent>
-        {renderMessage()}
-        <MyTextField
-          form={form}
-          name='text'
-          label={label}
-          required={required}
-          autofocus={true}
-          maxLength={maxLength}
-          sx={{ marginTop: 2, }}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button color='success' onClick={form.handleSubmit(data => onSubmit(data.text))}>{okLabel}</Button>
-        <Button color='error' onClick={() => onCancel()}>{cancelLabel}</Button>
-      </DialogActions>
+      <DialogTitle sx={{ pb: 1.5 }}>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <Box sx={{ bgcolor: 'primary.light', color: 'primary.main', p: 1, borderRadius: 2, display: 'flex' }}>
+            <EditNoteRounded />
+          </Box>
+          <Box>
+            <Typography variant="h6" fontWeight={700} lineHeight={1.2}>
+              {title}
+            </Typography>
+            {message && typeof message === 'string' ? (
+              <Typography variant="caption" color="text.secondary">
+                {message}
+              </Typography>
+            ) : null}
+          </Box>
+        </Stack>
+      </DialogTitle>
+
+      <Divider sx={{ mx: 3, opacity: 0.5 }} />
+
+      <form onSubmit={form.handleSubmit(data => onSubmit(data.text))} noValidate>
+        <DialogContent sx={{ mt: 1 }}>
+
+          {/* Support for custom JSX message objects */}
+          {message && typeof message !== 'string' && (
+            <Box sx={{ mb: 2 }}>{message}</Box>
+          )}
+
+          <MyTextField
+            form={form}
+            name='text'
+            label={label}
+            required={required}
+            autofocus={true}
+            maxLength={maxLength}
+            sx={{ mt: 1, }}
+          />
+
+        </DialogContent>
+
+        <DialogActions sx={{ p: 2, px: 3 }}>
+          <Button
+            color="inherit"
+            onClick={handleCancel}
+            sx={{ fontWeight: 700, color: 'text.secondary' }}
+          >
+            {cancelLabel}
+          </Button>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            sx={{
+              borderRadius: 2,
+              px: 4,
+              fontWeight: 700,
+              boxShadow: 'none',
+              '&:hover': { boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }
+            }}
+          >
+            {
+              isLoading ? (
+                <CircularProgress size={20} sx={{ color: 'inherit' }} />
+              ) : (
+                okLabel
+              )
+            }
+          </Button>
+        </DialogActions>
+      </form>
     </Dialog>
   )
 }

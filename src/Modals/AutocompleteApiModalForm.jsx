@@ -22,6 +22,7 @@ export const AutocompleteApiModalForm = ({
   minChars = 1,
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
   cancelLabel = 'ΑΚΥΡΩΣΗ',
+  isLoading = false
 }) => {
 
   // ---------------------------------------------------------------------------------------

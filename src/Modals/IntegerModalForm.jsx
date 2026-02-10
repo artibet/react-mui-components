@@ -21,7 +21,8 @@ export const IntegerModalForm = ({
   minValue = null,
   maxValue = null,
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
-  cancelLabel = 'ΑΚΥΡΩΣΗ'
+  cancelLabel = 'ΑΚΥΡΩΣΗ',
+  isLoading = false
 }) => {
 
   // ---------------------------------------------------------------------------------------

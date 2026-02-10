@@ -21,6 +21,7 @@ export const AutocompleteModalForm = ({
   requiredMessage = 'Υποχρεωτικό πεδίο',
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
   cancelLabel = 'ΑΚΥΡΩΣΗ',
+  isLoading = false
 }) => {
 
   // ---------------------------------------------------------------------------------------

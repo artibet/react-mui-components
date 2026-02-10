@@ -25,17 +25,27 @@ export const ToggleProperty = ({
   const [isLoading, setIsLoading] = React.useState(false)
 
   // ---------------------------------------------------------------------------------------
+  // Click handler
+  // ---------------------------------------------------------------------------------------
+  const handleClick = e => {
+    e.currentTarget.blur()
+    setShowConfirm(true)
+  }
+
+  // ---------------------------------------------------------------------------------------
   // Submit handler
   // ---------------------------------------------------------------------------------------
   const handleSubmit = () => {
     setIsLoading(true)
-    setShowConfirm(false)
     router.put(updateUrl, {
       field: fieldName,
       value: value ? 0 : 1
     }, {
       preserveScroll: true,
-      onFinish: () => setIsLoading(false)
+      onFinish: () => {
+        setIsLoading(false)
+        setShowConfirm(false)
+      }
     })
 
   }
@@ -67,8 +77,8 @@ export const ToggleProperty = ({
                 size="small"
                 variant='outlined'
                 color={value ? 'error' : 'success'}
-                startIcon={isLoading ? null : value ? <ToggleOff fontSize='small' /> : <ToggleOn fontSize='small' />}
-                onClick={() => setShowConfirm(true)}
+                startIcon={value ? <ToggleOff fontSize='small' /> : <ToggleOn fontSize='small' />}
+                onClick={handleClick}
                 sx={{
                   borderRadius: 2,
                   textTransform: 'none',
@@ -77,11 +87,7 @@ export const ToggleProperty = ({
                 }}
               >
                 {
-                  isLoading ? (
-                    <CircularProgress size={20} sx={{ color: 'inherit' }} />
-                  ) : (
-                    value ? deactivationLabel : activationLabel
-                  )
+                  value ? deactivationLabel : activationLabel
                 }
               </Button>
             )}
@@ -98,6 +104,7 @@ export const ToggleProperty = ({
         message={value ? deactivationMessage : activationMessage}
         onConfirm={handleSubmit}
         onCancel={() => setShowConfirm(false)}
+        isLoading={isLoading}
       />
     </>
   )

@@ -21,7 +21,8 @@ export const EmailModalForm = ({
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
   cancelLabel = 'ΑΚΥΡΩΣΗ',
   maxLength = 255,
-  message = null
+  message = null,
+  isLoading = false
 }) => {
 
   // ---------------------------------------------------------------------------------------

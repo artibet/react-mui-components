@@ -16,7 +16,8 @@ export const DateModalForm = ({
   required = true,
   requiredMessage = 'Υποχρεωτικό πεδίο',
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
-  cancelLabel = 'ΑΚΥΡΩΣΗ'
+  cancelLabel = 'ΑΚΥΡΩΣΗ',
+  isLoading = false
 }) => {
 
   // ---------------------------------------------------------------------------------------

@@ -27,19 +27,28 @@ export const TextProperty = ({
   const [isLoading, setIsLoading] = React.useState(false)
 
   // ---------------------------------------------------------------------------------------
+  // Click handler
+  // ---------------------------------------------------------------------------------------
+  const handleClick = e => {
+    e.currentTarget.blur()
+    setShowForm(true)
+  }
+
+  // ---------------------------------------------------------------------------------------
   // Submit handler
   // ---------------------------------------------------------------------------------------
   const handleSubmit = data => {
     setIsLoading(true)
-    setShowForm(false)
     router.put(updateUrl, {
       field: fieldName,
       value: data
     }, {
       preserveScroll: true,
-      onFinish: () => setIsLoading(false)
+      onFinish: () => {
+        setIsLoading(false)
+        setShowForm(false)
+      }
     })
-    setShowForm(false)
   }
 
   // ---------------------------------------------------------------------------------------
@@ -88,8 +97,8 @@ export const TextProperty = ({
                 size="small"
                 variant={isMissing ? "contained" : "outlined"}
                 color={isMissing ? "error" : "primary"}
-                startIcon={isLoading ? null : <Edit fontSize="small" />}
-                onClick={() => setShowForm(true)}
+                startIcon={<Edit fontSize="small" />}
+                onClick={handleClick}
                 sx={{
                   borderRadius: 2,
                   textTransform: 'none',
@@ -98,11 +107,7 @@ export const TextProperty = ({
                 }}
               >
                 {
-                  isLoading ? (
-                    <CircularProgress size={20} sx={{ color: 'inherit' }} />
-                  ) : (
-                    !value ? 'Συμπλήρωση' : 'Επεξεργασία'
-                  )
+                  !value ? 'Συμπλήρωση' : 'Επεξεργασία'
                 }
               </Button>
             )}
@@ -123,6 +128,7 @@ export const TextProperty = ({
         onSubmit={handleSubmit}
         onCancel={() => setShowForm(false)}
         message={message}
+        isLoading={isLoading}
       />
     </>
   )

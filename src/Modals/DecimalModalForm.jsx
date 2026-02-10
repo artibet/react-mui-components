@@ -21,7 +21,8 @@ export const DecimalModalForm = ({
   required = true,
   requiredMessage = 'Υποχρεωτικό πεδίο',
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
-  cancelLabel = 'ΑΚΥΡΩΣΗ'
+  cancelLabel = 'ΑΚΥΡΩΣΗ',
+  isLoading = false
 }) => {
 
   // ---------------------------------------------------------------------------------------

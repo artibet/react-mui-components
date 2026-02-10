@@ -29,6 +29,14 @@ export const AutocompleteMultiProperty = ({
   const [isLoading, setIsLoading] = React.useState(false)
 
   // ---------------------------------------------------------------------------------------
+  // Click handler
+  // ---------------------------------------------------------------------------------------
+  const handleClick = e => {
+    e.currentTarget.blur()
+    setShowForm(true)
+  }
+
+  // ---------------------------------------------------------------------------------------
   // Build a comma sparated string of selected labels
   // ---------------------------------------------------------------------------------------
   const selections = options.filter(option => value.some(v => v[valueKey] === option[valueKey]))
@@ -40,13 +48,15 @@ export const AutocompleteMultiProperty = ({
   // ---------------------------------------------------------------------------------------
   const handleSubmit = data => {
     setIsLoading(true)
-    setShowForm(false)
     router.put(updateUrl, {
       field: fieldName,
       value: data.map(item => item[valueKey])
     }, {
       preserveScroll: true,
-      onFinish: () => setIsLoading(false)
+      onFinish: () => {
+        setIsLoading(false)
+        setShowForm(false)
+      }
     })
   }
 
@@ -96,7 +106,7 @@ export const AutocompleteMultiProperty = ({
                 size="small"
                 variant={isMissing ? "contained" : "outlined"}
                 color={isMissing ? "error" : "primary"}
-                startIcon={isLoading ? null : <Edit fontSize="small" />}
+                startIcon={<Edit fontSize="small" />}
                 onClick={() => setShowForm(true)}
                 sx={{
                   borderRadius: 2,
@@ -106,11 +116,7 @@ export const AutocompleteMultiProperty = ({
                 }}
               >
                 {
-                  isLoading ? (
-                    <CircularProgress size={20} sx={{ color: 'inherit' }} />
-                  ) : (
-                    !value ? 'Συμπλήρωση' : 'Επεξεργασία'
-                  )
+                  !value ? 'Συμπλήρωση' : 'Επεξεργασία'
                 }
               </Button>
             )}
@@ -119,7 +125,8 @@ export const AutocompleteMultiProperty = ({
         </Grid2>
       </ListItem >
 
-      {hasDivider && <Divider component='li' />}
+      {hasDivider && <Divider component='li' />
+      }
 
       <AutocompleteMultiModalForm
         open={showForm}
@@ -133,6 +140,7 @@ export const AutocompleteMultiProperty = ({
         onSubmit={handleSubmit}
         onCancel={() => setShowForm(false)}
         message={message}
+        isLoading={isLoading}
       />
     </>
   )

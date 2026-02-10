@@ -20,7 +20,8 @@ export const CurrencyModalForm = ({
   maxValue = null,
   requiredMessage = 'Υποχρεωτικό πεδίο',
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
-  cancelLabel = 'ΑΚΥΡΩΣΗ'
+  cancelLabel = 'ΑΚΥΡΩΣΗ',
+  isLoading = false
 }) => {
 
   // ---------------------------------------------------------------------------------------
