@@ -26,9 +26,13 @@ export const AutocompleteMultiProperty = ({
   // ---------------------------------------------------------------------------------------
   const [showForm, setShowForm] = React.useState(false)
   const isMissing = value == null && required
-  const selectedItem = options.find(item => item.id === value);
-  const valueLabel = selectedItem ? selectedItem.label : ''
   const [isLoading, setIsLoading] = React.useState(false)
+
+  // ---------------------------------------------------------------------------------------
+  // Build a comma sparated string of selected labels
+  // ---------------------------------------------------------------------------------------
+  const selections = options.filter(option => value.some(v => v[valueKey] === option[valueKey]))
+  const selectionLabels = selections.map(s => s[labelKey]).join(', ')
 
   // ---------------------------------------------------------------------------------------
   // Submit handler
@@ -80,7 +84,7 @@ export const AutocompleteMultiProperty = ({
             ) : (
               render ||
               <Typography variant="body1" fontWeight={500}>
-                {valueLabel ? valueLabel : placeholder}
+                {selectionLabels ? selectionLabels : placeholder}
               </Typography>
             )}
           </Grid2>
