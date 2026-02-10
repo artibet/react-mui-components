@@ -129,7 +129,7 @@ export const TextModalForm = ({
           <Button
             color="inherit"
             onClick={handleCancel}
-            sx={{ fontWeight: 700, color: 'text.secondary' }}
+            sx={{ fontWeight: 700, color: 'text.secondary', minWidth: 150, }}
           >
             {cancelLabel}
           </Button>
@@ -142,6 +142,7 @@ export const TextModalForm = ({
               px: 4,
               fontWeight: 700,
               boxShadow: 'none',
+              minWidth: 150,
               '&:hover': { boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }
             }}
           >
