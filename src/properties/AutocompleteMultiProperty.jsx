@@ -2,9 +2,9 @@ import React from 'react'
 import { Button, Chip, CircularProgress, Divider, Grid2, ListItem, Stack, Typography } from '@mui/material'
 import { router } from '@inertiajs/react'
 import { Edit, ErrorOutline } from '@mui/icons-material'
-import { AutocompleteModalForm } from '../Modals'
+import { AutocompleteMultiModalForm } from '../Modals'
 
-export const AutocompleteProperty = ({
+export const AutocompleteMultiProperty = ({
   label,
   value,
   render = null,
@@ -32,13 +32,14 @@ export const AutocompleteProperty = ({
 
   // ---------------------------------------------------------------------------------------
   // Submit handler
+  // data.field is an array of objects - Submit array of ids
   // ---------------------------------------------------------------------------------------
   const handleSubmit = data => {
     setIsLoading(true)
     setShowForm(false)
     router.put(updateUrl, {
       field: fieldName,
-      value: data.field
+      value: data.map(item => item[valueKey])
     }, {
       preserveScroll: true,
       onFinish: () => setIsLoading(false)
@@ -116,7 +117,7 @@ export const AutocompleteProperty = ({
 
       {hasDivider && <Divider component='li' />}
 
-      <AutocompleteModalForm
+      <AutocompleteMultiModalForm
         open={showForm}
         title={modalTitle}
         label={label}
