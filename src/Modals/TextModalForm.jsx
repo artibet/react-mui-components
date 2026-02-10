@@ -76,7 +76,7 @@ export const TextModalForm = ({
       fullWidth
       maxWidth={size}
       open={open}
-      onClose={handleCancel}
+      onClose={() => { }}
       slots={{ transition: Zoom }}
       disableRestoreFocus={false} // Crucial for accessibility
       slotProps={{
