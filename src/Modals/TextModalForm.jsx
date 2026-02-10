@@ -69,6 +69,15 @@ export const TextModalForm = ({
   };
 
   // ---------------------------------------------------------------------------------------
+  // Close dialog handler
+  // ---------------------------------------------------------------------------------------
+  const handleClose = (e, reason) => {
+    if (reason === 'escapeKeyDown') {
+      onCancel();
+    }
+  }
+
+  // ---------------------------------------------------------------------------------------
   // JSX
   // ---------------------------------------------------------------------------------------
   return (
@@ -76,7 +85,7 @@ export const TextModalForm = ({
       fullWidth
       maxWidth={size}
       open={open}
-      onClose={() => { }}
+      onClose={handleClose}
       slots={{ transition: Zoom }}
       disableRestoreFocus={false} // Crucial for accessibility
       slotProps={{
