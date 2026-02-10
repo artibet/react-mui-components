@@ -107,7 +107,7 @@ export const AutocompleteMultiProperty = ({
                 variant={isMissing ? "contained" : "outlined"}
                 color={isMissing ? "error" : "primary"}
                 startIcon={<Edit fontSize="small" />}
-                onClick={() => setShowForm(true)}
+                onClick={handleClick}
                 sx={{
                   borderRadius: 2,
                   textTransform: 'none',
