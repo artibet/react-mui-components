@@ -72,7 +72,19 @@ export const TextModalForm = ({
   // JSX
   // ---------------------------------------------------------------------------------------
   return (
-    <Dialog fullWidth maxWidth={size} open={open} onClose={() => { }} onKeyDown={handleKeyDown} disableRestoreFocus >
+    <Dialog
+      fullWidth
+      maxWidth={size}
+      open={open}
+      onClose={handleCancel}
+      slots={{ transition: Zoom }}
+      disableRestoreFocus={false} // Crucial for accessibility
+      slotProps={{
+        paper: {
+          sx: { borderRadius: 3, p: 0.5 }
+        }
+      }}
+    >
       <DialogTitle sx={{ pb: 1.5 }}>
         <Stack direction="row" spacing={2} alignItems="center">
           <Box sx={{ bgcolor: 'primary.light', color: 'primary.main', p: 1, borderRadius: 2, display: 'flex' }}>
