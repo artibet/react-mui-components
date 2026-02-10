@@ -116,7 +116,7 @@ export const EmailModalForm = ({
 
       <Divider sx={{ mx: 3, opacity: 0.5 }} />
 
-      <form onSubmit={form.handleSubmit(data => onSubmit(data.text))} noValidate>
+      <form onSubmit={form.handleSubmit(data => onSubmit(data.email))} noValidate>
         <DialogContent sx={{ mt: 1 }}>
 
           {/* Support for custom JSX message objects */}
