@@ -115,7 +115,7 @@ export const AutocompleteMultiModalForm = ({
 
       <Divider sx={{ mx: 3, opacity: 0.5 }} />
 
-      <form onSubmit={form.handleSubmit(data => onSubmit(data.field))} noValidate>
+      <form onSubmit={form.handleSubmit(data => onSubmit(data))} noValidate>
         <DialogContent sx={{ mt: 1 }}>
 
           {/* Support for custom JSX message objects */}
