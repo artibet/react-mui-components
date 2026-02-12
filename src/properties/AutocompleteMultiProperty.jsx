@@ -50,7 +50,7 @@ export const AutocompleteMultiProperty = ({
     setIsLoading(true)
     router.put(updateUrl, {
       field: fieldName,
-      value: data.map(item => item[valueKey])
+      value: data.field.map(item => item[valueKey])
     }, {
       preserveScroll: true,
       onFinish: () => {
