@@ -68,6 +68,7 @@ export const MyDatetimeField = ({
         fieldYearPlaceholder: _ => 'EEEE',
         fieldHoursPlaceholder: _ => 'ΩΩ',
         fieldMinutesPlaceholder: _ => 'ΛΛ',
+        fieldClearLabel: 'Καθαρισμός',
       }}
     >
       <Controller
@@ -93,6 +94,10 @@ export const MyDatetimeField = ({
               seconds: secondsStep,
             }}
             slotProps={{
+              field: {
+                clearable: true,
+                onClear: () => field.onChange(null),
+              },
               textField: {
                 ...props,
                 required: required,
@@ -108,44 +113,6 @@ export const MyDatetimeField = ({
       />
     </LocalizationProvider >
 
-
-
-    // <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={el}>
-    // 	<Controller
-    // 		name={name}
-    // 		control={control}
-    // 		rules={{
-    // 			required: required,
-    // 			disabled: disabled
-    // 		}}
-    // 		render={({ field }) => (
-    // 			<DateTimePicker
-    // 				label={label}
-    // 				format={format}
-    // 				value={field.value}
-    // 				views={["year", "month", "day", "hours", "minutes"]}
-    // 				// viewRenderers={{
-    // 				// 	hours: renderDigitalClockTimeView,
-    // 				// 	minutes: renderDigitalClockTimeView
-    // 				// }}
-    // 				ampm={ampm}
-    // 				onChange={field.onChange}
-    // 				disabled={disabled}
-    // 				slots={{
-    // 					textField: params =>
-    // 						<TextField {...params}
-    // 							required={required}
-    // 							error={showErrors && Boolean(errors[name]?.message)}
-    // 							helperText={showErrors && errors[name]?.message}
-    // 							variant="outlined"
-    // 							fullWidth={true}
-    // 							{...props}
-    // 						/>,
-    // 				}}
-    // 			/>
-    // 		)}
-    // 	/>
-    // </LocalizationProvider>
   )
 }
 

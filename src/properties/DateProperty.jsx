@@ -3,7 +3,7 @@ import { Button, Chip, Divider, Grid2, ListItem, Stack, Typography } from '@mui/
 import { router } from '@inertiajs/react'
 import { DateModalForm } from '../Modals'
 import { Edit, ErrorOutline } from '@mui/icons-material'
-import { formatDateTime } from '../utils/dates'
+import { formatDate } from '../utils'
 
 export const DateProperty = ({
   label,
@@ -85,7 +85,7 @@ export const DateProperty = ({
             ) : (
               render ||
               <Typography variant="body1" fontWeight={500}>
-                {value ? formatDateTime(value) : placeholder}
+                {value ? formatDate(value) : placeholder}
               </Typography>
             )}
           </Grid2>

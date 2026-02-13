@@ -34,6 +34,7 @@ export const MyDateField = ({
         fieldDayPlaceholder: _ => 'ΗΗ',
         fieldMonthPlaceholder: _ => 'ΜΜ',
         fieldYearPlaceholder: _ => 'EEEE',
+        fieldClearLabel: 'Καθαρισμός',
       }}
     >
       <Controller
@@ -51,6 +52,10 @@ export const MyDateField = ({
             inputFormat
             onChange={newValue => field.onChange(newValue)}
             slotProps={{
+              field: {
+                clearable: true,
+                onClear: () => field.onChange(null),
+              },
               textField: {
                 ...props,
                 required: required,
