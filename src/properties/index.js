@@ -6,3 +6,5 @@ export * from './TextProperty'
 export * from './AutocompleteProperty'
 export * from './ToggleProperty'
 export * from './AutocompleteMultiProperty'
+export * from './PropertyGroup'
+
