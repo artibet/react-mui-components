@@ -26,9 +26,13 @@ export const AutocompleteProperty = ({
   // ---------------------------------------------------------------------------------------
   const [showForm, setShowForm] = React.useState(false)
   const isMissing = value == null && required
-  const selectedItem = options.find(item => item.id === value);
-  const valueLabel = selectedItem ? selectedItem.label : ''
   const [isLoading, setIsLoading] = React.useState(false)
+
+  // ---------------------------------------------------------------------------------------
+  // Current selection
+  // ---------------------------------------------------------------------------------------
+  const selection = options.find(item => item[valueKey] === value);
+  const selectionLabel = selection ? selection[labelKey] : ''
 
   // ---------------------------------------------------------------------------------------
   // Click handler
@@ -89,7 +93,7 @@ export const AutocompleteProperty = ({
             ) : (
               render ||
               <Typography variant="body1" fontWeight={500}>
-                {valueLabel ? valueLabel : placeholder}
+                {selectionLabel ? selectionLabel : placeholder}
               </Typography>
             )}
           </Grid2>
