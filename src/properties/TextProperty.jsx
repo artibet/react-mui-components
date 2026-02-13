@@ -84,7 +84,7 @@ export const TextProperty = ({
               </Stack>
             ) : (
               render ||
-              <Typography variant="body1" fontWeight={500}>
+              <Typography variant="body1" fontWeight={500} sx={{ whiteSpace: 'pre-line' }}>
                 {value ? value : placeholder}
               </Typography>
             )}
