@@ -1,27 +1,29 @@
 import React from 'react'
-import { Button, Divider, Grid2, ListItem, Typography } from '@mui/material'
+import { Button, Chip, Divider, Grid2, ListItem, Stack, Typography } from '@mui/material'
 import { router } from '@inertiajs/react'
-import { ToggleOff, ToggleOn } from '@mui/icons-material'
-import { ConfirmationDialog } from '../Modals'
+import { DateModalForm } from '../Modals'
+import { Edit, ErrorOutline } from '@mui/icons-material'
+import { formatDateTime } from '../utils/dates'
 
-export const ToggleProperty = ({
+export const DateProperty = ({
   label,
-  value,    // true | false
+  value,
   render = null,
   fieldName = null,
   editable = false,
-  activationLabel = 'Ενεργοποίηση',
-  deactivationLabel = 'Απενεργοποίηση',
-  activationMessage = '',
-  deactivationMessage = '',
+  required = true,
+  placeholder = '',
+  modalTitle = 'Επεξεργασία',
   updateUrl = null,
+  message = null,
   hasDivider = true
 }) => {
 
   // ---------------------------------------------------------------------------------------
   // State
   // ---------------------------------------------------------------------------------------
-  const [showConfirm, setShowConfirm] = React.useState(false)
+  const [showForm, setShowForm] = React.useState(false)
+  const isMissing = !value && required
   const [isLoading, setIsLoading] = React.useState(false)
 
   // ---------------------------------------------------------------------------------------
@@ -29,25 +31,24 @@ export const ToggleProperty = ({
   // ---------------------------------------------------------------------------------------
   const handleClick = e => {
     e.currentTarget.blur()
-    setShowConfirm(true)
+    setShowForm(true)
   }
 
   // ---------------------------------------------------------------------------------------
   // Submit handler
   // ---------------------------------------------------------------------------------------
-  const handleSubmit = () => {
+  const handleSubmit = data => {
     setIsLoading(true)
     router.put(updateUrl, {
       field: fieldName,
-      value: value ? 0 : 1
+      value: data
     }, {
       preserveScroll: true,
       onFinish: () => {
         setIsLoading(false)
-        setShowConfirm(false)
+        setShowForm(false)
       }
     })
-
   }
 
   // ---------------------------------------------------------------------------------------
@@ -65,9 +66,28 @@ export const ToggleProperty = ({
             </Typography>
           </Grid2>
 
-          {/* 2. Value Column  */}
+          {/* 2. Value Column (with Missing state handling) */}
           <Grid2 size={{ xs: 12, sm: 6 }}>
-            {render || <Typography variant="body1" fontWeight={500}>{value ? 1 : 0}</Typography>}
+            {required && !value ? (
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Typography variant="body1" color="error.main" fontWeight={600}>
+                  Δεν έχει καταχωρηθεί
+                </Typography>
+                <Chip
+                  size="small"
+                  color="error"
+                  variant="soft" // If using MUI Lab or custom theme, otherwise use default
+                  label="Απαιτείται"
+                  icon={<ErrorOutline sx={{ fontSize: '14px !important' }} />}
+                  sx={{ fontWeight: 700, height: 22 }}
+                />
+              </Stack>
+            ) : (
+              render ||
+              <Typography variant="body1" fontWeight={500}>
+                {value ? formatDateTime(value) : placeholder}
+              </Typography>
+            )}
           </Grid2>
 
           {/* 3. Action Column */}
@@ -75,9 +95,9 @@ export const ToggleProperty = ({
             {editable && (
               <Button
                 size="small"
-                variant='outlined'
-                color={value ? 'error' : 'success'}
-                startIcon={value ? <ToggleOff fontSize='small' /> : <ToggleOn fontSize='small' />}
+                variant={isMissing ? "contained" : "outlined"}
+                color={isMissing ? "error" : "primary"}
+                startIcon={<Edit fontSize="small" />}
                 onClick={handleClick}
                 sx={{
                   borderRadius: 2,
@@ -87,7 +107,7 @@ export const ToggleProperty = ({
                 }}
               >
                 {
-                  value ? deactivationLabel : activationLabel
+                  !value ? 'Συμπλήρωση' : 'Επεξεργασία'
                 }
               </Button>
             )}
@@ -98,14 +118,18 @@ export const ToggleProperty = ({
 
       {hasDivider && <Divider component='li' />}
 
-      <ConfirmationDialog
-        open={showConfirm}
-        title={value ? deactivationLabel : activationLabel}
-        message={value ? deactivationMessage : activationMessage}
-        onConfirm={handleSubmit}
-        onCancel={() => setShowConfirm(false)}
+      <DateModalForm
+        open={showForm}
+        title={modalTitle}
+        label={label}
+        value={value}
+        required={required}
+        onSubmit={handleSubmit}
+        onCancel={() => setShowForm(false)}
+        message={message}
         isLoading={isLoading}
       />
+
     </>
   )
 }
