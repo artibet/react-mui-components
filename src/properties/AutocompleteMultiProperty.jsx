@@ -25,7 +25,7 @@ export const AutocompleteMultiProperty = ({
   // State
   // ---------------------------------------------------------------------------------------
   const [showForm, setShowForm] = React.useState(false)
-  const isMissing = value == null && required
+  const isMissing = required && (!Array.isArray(value) || !value.length)
   const [isLoading, setIsLoading] = React.useState(false)
 
   // ---------------------------------------------------------------------------------------
@@ -77,7 +77,7 @@ export const AutocompleteMultiProperty = ({
 
           {/* 2. Value Column (with Missing state handling) */}
           <Grid2 size={{ xs: 12, sm: 6 }}>
-            {required && value == null ? (
+            {required && (!Array.isArray(value) || !value.length) ? (
               <Stack direction="row" spacing={1} alignItems="center">
                 <Typography variant="body1" color="error.main" fontWeight={600}>
                   Δεν έχει καταχωρηθεί
@@ -116,7 +116,7 @@ export const AutocompleteMultiProperty = ({
                 }}
               >
                 {
-                  !value ? 'Συμπλήρωση' : 'Επεξεργασία'
+                  (!Array.isArray(value) || !value.length) ? 'Συμπλήρωση' : 'Επεξεργασία'
                 }
               </Button>
             )}
