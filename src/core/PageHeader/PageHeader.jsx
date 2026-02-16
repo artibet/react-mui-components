@@ -10,6 +10,8 @@ export const PageHeader = ({
   titleColor = 'text.primary',
   wrapperStyle = {},
   titleChip = null,
+  createdAt = null,
+  updatedAt = null,
   timestamps = null,
   globalActions = null,
 
@@ -45,36 +47,49 @@ export const PageHeader = ({
               divider={<Box sx={{ width: 4, height: 4, borderRadius: '50%', bgcolor: 'text.disabled', opacity: 0.5 }} />}
             >
               {
-                timestamps &&
+                (createdAt || updatedAt) &&
                 <Stack
                   direction="row"
                   spacing={1.5}
                   alignItems="center"
                   sx={{ display: 'flex' }} // Εξασφαλίζει το flex behavior
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                    <CalendarToday sx={{ fontSize: 14, color: 'text.disabled' }} />
-                    <Typography
-                      variant="caption"
-                      color="text.secondary"
-                      sx={{ lineHeight: 1, display: 'flex', alignItems: 'center' }}
-                    >
-                      {formatDateTime(timestamps.created_at)}
-                    </Typography>
-                  </Box>
+                  {/* createdAT */}
+                  {
+                    createdAt &&
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                      <CalendarToday sx={{ fontSize: 14, color: 'text.disabled' }} />
+                      <Typography
+                        variant="caption"
+                        color="text.secondary"
+                        sx={{ lineHeight: 1, display: 'flex', alignItems: 'center' }}
+                      >
+                        {formatDateTime(timestamps.created_at)}
+                      </Typography>
+                    </Box>
+                  }
 
-                  <Box component="span" sx={{ color: 'divider', fontSize: 14 }}>•</Box>
+                  {/* devider */}
+                  {
+                    createdAt && updatedAt &&
+                    <Box component="span" sx={{ color: 'divider', fontSize: 14 }}>•</Box>
+                  }
 
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                    <Update sx={{ fontSize: 14, color: 'text.disabled' }} />
-                    <Typography
-                      variant="caption"
-                      color="text.secondary"
-                      sx={{ lineHeight: 1, display: 'flex', alignItems: 'center' }}
-                    >
-                      {formatDateTime(timestamps.updated_at)}
-                    </Typography>
-                  </Box>
+                  {/* updatedAT */}
+                  {
+                    updatedAt &&
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                      <Update sx={{ fontSize: 14, color: 'text.disabled' }} />
+                      <Typography
+                        variant="caption"
+                        color="text.secondary"
+                        sx={{ lineHeight: 1, display: 'flex', alignItems: 'center' }}
+                      >
+                        {formatDateTime(timestamps.updated_at)}
+                      </Typography>
+                    </Box>
+                  }
+
                 </Stack>
               }
             </Stack>
