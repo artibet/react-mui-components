@@ -12,7 +12,6 @@ export const PageHeader = ({
   titleChip = null,
   createdAt = null,
   updatedAt = null,
-  timestamps = null,
   globalActions = null,
 
 }) => {
@@ -64,7 +63,7 @@ export const PageHeader = ({
                         color="text.secondary"
                         sx={{ lineHeight: 1, display: 'flex', alignItems: 'center' }}
                       >
-                        {formatDateTime(timestamps.created_at)}
+                        {formatDateTime(createdAt)}
                       </Typography>
                     </Box>
                   }
@@ -85,7 +84,7 @@ export const PageHeader = ({
                         color="text.secondary"
                         sx={{ lineHeight: 1, display: 'flex', alignItems: 'center' }}
                       >
-                        {formatDateTime(timestamps.updated_at)}
+                        {formatDateTime(updatedAt)}
                       </Typography>
                     </Box>
                   }
