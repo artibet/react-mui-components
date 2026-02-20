@@ -31,7 +31,7 @@ export const ToastMessages = ({ defaultDirection = 'left' }) => {
       setSeverity(type);
       setOpen(true);
     }
-  }, [flash]);
+  }, [flash.id]);
 
   // ---------------------------------------------------------------------------------------
   // Close handler
