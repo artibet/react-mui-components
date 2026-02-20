@@ -7,5 +7,6 @@ export * from './AutocompleteProperty'
 export * from './ToggleProperty'
 export * from './AutocompleteMultiProperty'
 export * from './FileProperty'
+export * from './CurrencyProperty'
 export * from './PropertyGroup'
 
