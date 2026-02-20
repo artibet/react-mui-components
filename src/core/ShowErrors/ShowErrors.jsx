@@ -2,6 +2,7 @@ import React from 'react'
 import { Alert } from '@mui/material'
 
 export const ShowErrors = ({ errors, marginBottom = 3 }) => {
+  if (!errors) return null
   if (Object.keys(errors).length === 0) return null
 
   return (
