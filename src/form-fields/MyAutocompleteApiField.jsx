@@ -100,6 +100,20 @@ export const MyAutocompleteApiField = React.forwardRef(({
   }
 
   // ---------------------------------------------------------------------------------------
+  // Debounced inpute change
+  // ---------------------------------------------------------------------------------------
+  const debouncedInputChange = useMemo(
+    () =>
+      myDebounce((event, value, reason) => {
+        // ONLY trigger the actual search if the user is typing
+        if (reason === 'input') {
+          handleInputChange(event, value, reason);
+        }
+      }, 300),
+    [] // Created once per component lifecycle
+  );
+
+  // ---------------------------------------------------------------------------------------
   // JSX
   // ---------------------------------------------------------------------------------------
   return (
@@ -131,7 +145,7 @@ export const MyAutocompleteApiField = React.forwardRef(({
           <Autocomplete
             value={localValue}
             options={options}
-            onInputChange={myDebounce(handleInputChange, 300)}
+            onInputChange={debouncedInputChange}
             onChange={(_, newValue) => {
               setLocalValue(newValue)
               onChange(newValue ? newValue[valueKey] : null)

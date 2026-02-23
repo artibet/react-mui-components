@@ -15,6 +15,15 @@ const ColumnFilter = ({ column }) => {
 
   const filterValue = api.getColumnFilter(column)
 
+  // 1. Create a stable debounced function
+  // We use useCallback so it persists across renders
+  const debouncedFilterChange = React.useCallback(
+    myDebounce((col, val) => {
+      api.handleColumnFilterChange(col, val)
+    }, 300),
+    [api] // Only recreate if the api object changes
+  )
+
   // type == text
   if (column.filterType === 'text') {
     return (
@@ -22,7 +31,7 @@ const ColumnFilter = ({ column }) => {
         activeColor={props.filterActiveColor}
         inactiveColor={props.filterInactiveColor}
         initialValue={filterValue}
-        onChange={myDebounce((value) => api.handleColumnFilterChange(column, value), 300)}
+        onChange={(value) => debouncedFilterChange(column, value)}
         placeholder={column.filterPlaceholder}
       />
     )
@@ -36,7 +45,7 @@ const ColumnFilter = ({ column }) => {
         inactiveColor={props.filterInactiveColor}
         initialValue={filterValue}
         mask={column.filterMask}
-        onChange={myDebounce((value) => api.handleColumnFilterChange(column, value), 300)}
+        onChange={(value) => debouncedFilterChange(column, value)}
         placeholder={column.filterPlaceholder}
       />
     )

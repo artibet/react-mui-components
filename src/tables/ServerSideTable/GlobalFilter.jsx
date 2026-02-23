@@ -10,12 +10,20 @@ const GlobalFilter = () => {
   // ---------------------------------------------------------------------------------------
   const { state, props, api } = React.useContext(TableContext)
 
+  // Create a stable debounced function so the timer persists
+  const debouncedGlobalChange = useCallback(
+    myDebounce((value) => {
+      api.handleGlobalFilterChange(value)
+    }, 300),
+    [api] // Only recreate if api changes (which usually only happens on mount)
+  )
+
   if (!props.enableGlobalFilter) return null
 
   return (
     <TextInput
       initialValue={state.globalFilter}
-      onChange={myDebounce(api.handleGlobalFilterChange, 300)}
+      onChange={debouncedGlobalChange}
       placeholder={props.globalFilterPlaceholder}
     />
   )
