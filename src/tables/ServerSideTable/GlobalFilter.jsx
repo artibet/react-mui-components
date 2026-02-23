@@ -11,7 +11,7 @@ const GlobalFilter = () => {
   const { state, props, api } = React.useContext(TableContext)
 
   // Create a stable debounced function so the timer persists
-  const debouncedGlobalChange = useCallback(
+  const debouncedGlobalChange = React.useCallback(
     myDebounce((value) => {
       api.handleGlobalFilterChange(value)
     }, 300),
