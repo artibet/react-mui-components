@@ -17,7 +17,6 @@ export const RegistrationProperty = ({
   placeholder = '----------',
   modalTitle = 'Επεξεργασία Πρωτοκόλλου',
   updateUrl = null,
-  httpMethod = 'put',
   registrationNumberMaxLength = 255,
   message = null,
   hasDivider = true
@@ -46,7 +45,8 @@ export const RegistrationProperty = ({
   // ---------------------------------------------------------------------------------------
   const handleSubmit = data => {
     setIsLoading(true)
-    router[httpMethod](updateUrl, data, {
+    router.put(updateUrl, data, {
+      preserveScroll: true,
       onFinish: () => {
         setIsLoading(false)
         setShowForm(false)
