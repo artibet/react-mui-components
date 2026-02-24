@@ -9,4 +9,5 @@ export * from './AutocompleteMultiProperty'
 export * from './FileProperty'
 export * from './CurrencyProperty'
 export * from './PropertyGroup'
+export * from './RegistrationProperty'
 
