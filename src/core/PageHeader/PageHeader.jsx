@@ -13,7 +13,7 @@ export const PageHeader = ({
   createdAt = null,
   updatedAt = null,
   globalActions = null,
-
+  subtitle = null,      // Under the dates
 }) => {
 
   // ---------------------------------------------------------------------------------------
@@ -92,6 +92,7 @@ export const PageHeader = ({
                 </Stack>
               }
             </Stack>
+
           </Box>
         </Stack>
 
@@ -101,6 +102,9 @@ export const PageHeader = ({
         </Box>
 
       </Stack>
+
+      {/* subtitle component (under the dates) */}
+      <Box>{subtitle}</Box>
 
       <Divider sx={{ mt: 2, opacity: 1 }} />
 
