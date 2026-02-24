@@ -2,8 +2,8 @@ import React from 'react'
 import { Button, Chip, Divider, Grid2, ListItem, Stack, Typography } from '@mui/material'
 import { router } from '@inertiajs/react'
 import { Edit, ErrorOutline } from '@mui/icons-material'
-import { formatDate } from 'date-fns'
 import { RegistrationModalForm } from '../Modals/RegistrationModalForm'
+import { formatDate } from '../utils'
 
 export const RegistrationProperty = ({
   label = 'Πρωτόκολλο',
