@@ -102,7 +102,7 @@ export const MyAutocompleteApiField = React.forwardRef(({
   // ---------------------------------------------------------------------------------------
   // Debounced inpute change
   // ---------------------------------------------------------------------------------------
-  const debouncedInputChange = useMemo(
+  const debouncedInputChange = React.useMemo(
     () =>
       myDebounce((event, value, reason) => {
         // ONLY trigger the actual search if the user is typing
