@@ -120,6 +120,11 @@ export const AutocompleteModalForm = ({
       <form onSubmit={form.handleSubmit(data => onSubmit(data))} noValidate>
         <DialogContent sx={{ mt: 1 }}>
 
+          {/* Support for custom JSX message objects */}
+          {message && typeof message !== 'string' && (
+            <Box sx={{ mb: 2 }}>{message}</Box>
+          )}
+
           <MyAutocompleteField
             form={form}
             name='field'
