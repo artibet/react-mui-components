@@ -11,6 +11,7 @@ export const SelectFileModalForm = ({
   title = 'Νέο Αρχείο',
   description = true,
   descriptionLabel = 'Περιγραφή Αρχείου',
+  descriptionRequiredMessage = 'Παρακαλώ συμπληρώστε την περιγραφή του αρχείου',
   fileSelectLabel = 'Επιλογή Αρχείου',
   maxFileName = 255,
   onSubmit,
@@ -36,8 +37,8 @@ export const SelectFileModalForm = ({
     descr: description ?
       yup
         .string()
-        .required('Παρακαλώ συμπληρώστε την περιγραφή του αρχείου')
-        .max(maxFileName, `Η περιγραφή δεν πρέπει να υπερβαίνει τους ${maxFileName} χαρακτήρες`)
+        .required(descriptionRequiredMessage)
+        .max(maxFileName, `Το πεδίο δεν πρέπει να υπερβαίνει τους ${maxFileName} χαρακτήρες`)
       : yup.string(),
     filename: yup
       .mixed()
