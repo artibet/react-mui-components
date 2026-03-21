@@ -39,6 +39,45 @@ export const useConfirm = () => {
   };
 
   // ---------------------------------------------------------------------------------------
+  // Special execute method - put request
+  // ---------------------------------------------------------------------------------------
+  const putRequest = (url, data, options = { preserveScroll: true }) => {
+    setProcessing(true)
+
+    router.put(url, data, {
+      ...options,
+      onSuccess: () => close(),
+      onFinish: () => setProcessing(false)
+    })
+  }
+
+  // ---------------------------------------------------------------------------------------
+  // Special execute method - post request
+  // ---------------------------------------------------------------------------------------
+  const postRequest = (url, data, options = { preserveScroll: true }) => {
+    setProcessing(true)
+
+    router.post(url, data, {
+      ...options,
+      onSuccess: () => close(),
+      onFinish: () => setProcessing(false)
+    })
+  }
+
+  // ---------------------------------------------------------------------------------------
+  // Special execute method - delete request
+  // ---------------------------------------------------------------------------------------
+  const deleteRequest = (method, url, options = { preserveScroll: true }) => {
+    setProcessing(true);
+
+    router.delete(url, {
+      ...options,
+      onSuccess: () => close(),
+      onFinish: () => setProcessing(false)
+    })
+  };
+
+  // ---------------------------------------------------------------------------------------
   // Return hook data
   // ---------------------------------------------------------------------------------------
   return {
@@ -47,6 +86,9 @@ export const useConfirm = () => {
     processing,
     open,
     close,
-    execute
+    execute,
+    putRequest,
+    postRequest,
+    deleteRequest
   };
 };
