@@ -29,16 +29,27 @@ export const useModalForm = (initialData = null) => {
   // ---------------------------------------------------------------------------------------
   // Submit wrapper
   // ---------------------------------------------------------------------------------------
-  const submit = (method, url, formData, options = { preserveScroll: true, onFinish: () => { } }) => {
+  const submit = (method, url, formData, options = {}) => {
     setProcessing(true);
 
+    const {
+      onFinish = () => { },
+      onSuccess = () => { },
+      preserveScroll = true,
+      ...otherOptions
+    } = options;
+
     router[method](url, formData, {
-      ...options,
+      ...otherOptions,
+      preserveScroll,
       onFinish: () => {
-        setProcessing(false)
-        onFinish()
+        setProcessing(false);
+        onFinish();
       },
-      onSuccess: () => close(),
+      onSuccess: (page) => {
+        close();
+        onSuccess(page);
+      },
     })
   }
 
