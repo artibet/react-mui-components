@@ -3,7 +3,6 @@ import { Button, Chip, Divider, Grid2, ListItem, Stack, Typography } from '@mui/
 import { router } from '@inertiajs/react'
 import { Edit, ErrorOutline } from '@mui/icons-material'
 import { IntegerModalForm } from '../Modals'
-import { formatCurrency } from '../utils'
 
 export const IntegerProperty = ({
   label,
@@ -87,7 +86,7 @@ export const IntegerProperty = ({
             ) : (
               render ||
               <Typography variant="body1" fontWeight={500}>
-                {value ? formatCurrency(value) : placeholder}
+                {value ? value : placeholder}
               </Typography>
             )}
           </Grid2>
