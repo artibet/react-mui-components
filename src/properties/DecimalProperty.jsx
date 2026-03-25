@@ -3,6 +3,7 @@ import { Button, Chip, Divider, Grid2, ListItem, Stack, Typography } from '@mui/
 import { router } from '@inertiajs/react'
 import { Edit, ErrorOutline } from '@mui/icons-material'
 import { formatFloat } from '../utils'
+import { DecimalModalForm } from '../Modals'
 
 export const DecimalProperty = ({
   label,
