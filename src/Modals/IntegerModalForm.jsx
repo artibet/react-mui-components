@@ -1,10 +1,11 @@
 import React from 'react'
-import { Button, Dialog, DialogContent, DialogTitle, DialogActions } from '@mui/material'
+import { Button, Dialog, DialogContent, DialogTitle, DialogActions, Zoom, Stack, Box, Typography, Divider, CircularProgress } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { MyIntegerField } from '../form-fields'
 import { notEmpty } from '../utils'
+import { EditNoteRounded } from '@mui/icons-material'
 
 
 export const IntegerModalForm = ({
@@ -22,6 +23,7 @@ export const IntegerModalForm = ({
   maxValue = null,
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
   cancelLabel = 'ΑΚΥΡΩΣΗ',
+  message = null,
   isLoading = false
 }) => {
 
@@ -60,51 +62,118 @@ export const IntegerModalForm = ({
   // ---------------------------------------------------------------------------------------
   const form = useForm({ defaultValues, resolver: yupResolver(schema) })
 
-  // ---------------------------------------------------------------
-  // submit on key down
-  // ---------------------------------------------------------------
-  const handleKeyDown = e => {
-    if (e.code === 'Enter' || e.code === 'NumpadEnter') {
-      e.preventDefault()
-      form.handleSubmit(data => onSubmit(data.num))()
-    }
-  }
-
   // ---------------------------------------------------------------------------------------
   // Reset text value
   // ---------------------------------------------------------------------------------------
   React.useEffect(() => {
     if (open) {
-      form.clearErrors()
-      form.setValue('num', notEmpty(value) ? value : null, {
-        shouldValidate: false,
-        shouldDirty: false,
-        shouldTouch: false
-      })
+      form.reset(defaultValues);
+      form.clearErrors();
     }
   }, [open, value])
+
+  // ---------------------------------------------------------------------------------------
+  // Cancel handler
+  // ---------------------------------------------------------------------------------------
+  const handleCancel = (e) => {
+    if (e) e.currentTarget.blur();
+    onCancel();
+  };
+
+  // ---------------------------------------------------------------------------------------
+  // Close dialog handler
+  // ---------------------------------------------------------------------------------------
+  const handleClose = (e, reason) => {
+    if (reason === 'escapeKeyDown') {
+      onCancel();
+    }
+  }
 
   // ---------------------------------------------------------------------------------------
   // JSX
   // ---------------------------------------------------------------------------------------
   return (
-    <Dialog fullWidth maxWidth={size} open={open} onClose={() => { }} onKeyDown={handleKeyDown} disableRestoreFocus >
-      <DialogTitle>{title}</DialogTitle>
-      <DialogContent>
-        <MyIntegerField
-          form={form}
-          name='num'
-          label={label}
-          required={required}
-          autofocus={true}
-          allowNegative={allowNegative}
-          sx={{ marginTop: 2, }}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button color='success' onClick={form.handleSubmit(data => onSubmit(data.num))}>{okLabel}</Button>
-        <Button color='error' onClick={() => onCancel()}>{cancelLabel}</Button>
-      </DialogActions>
+    <Dialog
+      fullWidth
+      maxWidth={size}
+      open={open}
+      onClose={handleClose}
+      slots={{ transition: Zoom }}
+      disableRestoreFocus={false} // Crucial for accessibility
+      slotProps={{
+        paper: {
+          sx: { borderRadius: 3, p: 0.5 }
+        }
+      }}
+    >
+      <DialogTitle sx={{ pb: 1.5 }}>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <Box sx={{ bgcolor: 'primary.light', color: 'primary.main', p: 1, borderRadius: 2, display: 'flex' }}>
+            <EditNoteRounded />
+          </Box>
+          <Box>
+            <Typography variant="h6" fontWeight={700} lineHeight={1.2}>
+              {title}
+            </Typography>
+            {message && typeof message === 'string' ? (
+              <Typography variant="caption" color="text.secondary">
+                {message}
+              </Typography>
+            ) : null}
+          </Box>
+        </Stack>
+      </DialogTitle>
+
+      <Divider sx={{ mx: 3, opacity: 0.5 }} />
+
+      <form onSubmit={form.handleSubmit(data => onSubmit(data.num))} noValidate>
+
+        <DialogContent>
+
+          <MyIntegerField
+            form={form}
+            name='num'
+            label={label}
+            required={required}
+            autofocus={true}
+            allowNegative={allowNegative}
+            sx={{ marginTop: 2, }}
+          />
+
+        </DialogContent>
+
+        <DialogActions sx={{ p: 2, px: 3 }}>
+          <Button
+            color="inherit"
+            onClick={handleCancel}
+            sx={{ fontWeight: 700, color: 'text.secondary', minWidth: 150, }}
+          >
+            {cancelLabel}
+          </Button>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            sx={{
+              borderRadius: 2,
+              px: 4,
+              fontWeight: 700,
+              boxShadow: 'none',
+              minWidth: 150,
+              '&:hover': { boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }
+            }}
+          >
+            {
+              isLoading ? (
+                <CircularProgress size={20} sx={{ color: 'inherit' }} />
+              ) : (
+                okLabel
+              )
+            }
+          </Button>
+        </DialogActions>
+
+      </form>
     </Dialog>
   )
 }

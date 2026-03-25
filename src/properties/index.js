@@ -11,4 +11,5 @@ export * from './CurrencyProperty'
 export * from './PropertyGroup'
 export * from './RegistrationProperty'
 export * from './TimeProperty'
+export * from './IntegerProperty'
 
