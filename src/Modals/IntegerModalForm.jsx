@@ -137,7 +137,7 @@ export const IntegerModalForm = ({
             required={required}
             autofocus={true}
             allowNegative={allowNegative}
-            sx={{ marginTop: 2, }}
+            sx={{ marginTop: 1, }}
           />
 
         </DialogContent>
