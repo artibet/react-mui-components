@@ -27,53 +27,108 @@ export const useConfirm = () => {
    * @param {string} method - 'delete', 'post', 'patch'
    * @param {string} url - The Inertia route
    */
-  const execute = (method, url, options = { preserveScroll: true }) => {
+  const execute = (method, url, options = {}) => {
     setProcessing(true);
 
+    const {
+      onFinish = () => { },
+      onSuccess = () => { },
+      preserveScroll = true,
+      ...otherOptions
+    } = options
+
     router[method](url, {
-      ...options,
-      onSuccess: () => close(),
-      onFinish: () => setProcessing(false),
-      // preserveScroll: true, // Common for table deletions
+      ...otherOptions,
+      preserveScroll,
+      onSuccess: (page) => {
+        close();
+        onSuccess(page);
+      },
+      onFinish: () => {
+        setProcessing(false);
+        onFinish();
+      },
     });
   };
 
   // ---------------------------------------------------------------------------------------
   // Special execute method - put request
   // ---------------------------------------------------------------------------------------
-  const putRequest = (url, data, options = { preserveScroll: true }) => {
+  const putRequest = (url, data, options = {}) => {
     setProcessing(true)
 
+    const {
+      onFinish = () => { },
+      onSuccess = () => { },
+      preserveScroll = true,
+      ...otherOptions
+    } = options
+
     router.put(url, data, {
-      ...options,
-      onSuccess: () => close(),
-      onFinish: () => setProcessing(false)
+      ...otherOptions,
+      preserveScroll,
+      onSuccess: (page) => {
+        close();
+        onSuccess(page);
+      },
+      onFinish: () => {
+        setProcessing(false);
+        onFinish();
+      },
     })
   }
 
   // ---------------------------------------------------------------------------------------
   // Special execute method - post request
   // ---------------------------------------------------------------------------------------
-  const postRequest = (url, data, options = { preserveScroll: true }) => {
+  const postRequest = (url, data, options = {}) => {
     setProcessing(true)
 
+    const {
+      onFinish = () => { },
+      onSuccess = () => { },
+      preserveScroll = true,
+      ...otherOptions
+    } = options
+
     router.post(url, data, {
-      ...options,
-      onSuccess: () => close(),
-      onFinish: () => setProcessing(false)
+      ...otherOptions,
+      preserveScroll,
+      onSuccess: (page) => {
+        close();
+        onSuccess(page);
+      },
+      onFinish: () => {
+        setProcessing(false);
+        onFinish();
+      },
     })
   }
 
   // ---------------------------------------------------------------------------------------
   // Special execute method - delete request
   // ---------------------------------------------------------------------------------------
-  const deleteRequest = (method, url, options = { preserveScroll: true }) => {
+  const deleteRequest = (url, options = {}) => {
     setProcessing(true);
 
+    const {
+      onFinish = () => { },
+      onSuccess = () => { },
+      preserveScroll = true,
+      ...otherOptions
+    } = options
+
     router.delete(url, {
-      ...options,
-      onSuccess: () => close(),
-      onFinish: () => setProcessing(false)
+      ...otherOptions,
+      preserveScroll,
+      onSuccess: (page) => {
+        close();
+        onSuccess(page);
+      },
+      onFinish: () => {
+        setProcessing(false);
+        onFinish();
+      },
     })
   };
 
