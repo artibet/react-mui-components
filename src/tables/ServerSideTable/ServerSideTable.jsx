@@ -1,4 +1,4 @@
-import { Box, Table, TableBody, TableContainer, TableHead, TablePagination } from '@mui/material'
+import { Box, IconButton, Table, TableBody, TableContainer, TableHead, TablePagination } from '@mui/material'
 import React from 'react'
 import GlobalFilter from './GlobalFilter'
 import { useLoader } from '../../hooks'
@@ -11,6 +11,7 @@ import { Row } from './Row'
 import { defaultColumnValues } from './defaultColumnValues'
 import { TableContext } from './TableContext'
 import Footer from './Footer'
+import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material'
 
 // ---------------------------------------------------------------------------------------
 // Default pagination
@@ -61,6 +62,8 @@ export const ServerSideTable = React.forwardRef(({
   rowsPerPageLabel = 'Εγγραφές ανά σελίδα',
   fromLabel = 'από',
   toLabel = 'έως',
+  expandableRows = false,
+  expandedRow = null    // row => {...}
 }, ref) => {
 
   // ---------------------------------------------------------------------------------------
@@ -95,10 +98,43 @@ export const ServerSideTable = React.forwardRef(({
   // Merged columns with defaults
   // ---------------------------------------------------------------------------------------
   const mergedColumns = React.useMemo(() => {
-    return columns.map(column => {
+    const finalColumns = columns.map(column => {
       return { ...defaultColumnValues, ...column }
     })
-  })
+
+    // If rows are not expandable return final columns
+    if (!expandableRows) {
+      return finalColumns
+    }
+
+    // Define the expander column
+    const expanderColumn = {
+      ...defaultColumnValues,
+      id: 'internal_expander',
+      label: '',
+      align: 'center',
+      width: '50px',
+      enableSorting: false,
+      enableFilter: false,
+      render: row => (
+        <IconButton
+          size="small"
+          onClick={(e) => {
+            e.stopPropagation();
+            setExpandedRows(prev => ({
+              ...prev,
+              [row.id]: !prev[row.id]
+            }));
+          }}
+        >
+          {expandedRows[row.id] ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+        </IconButton>
+      )
+    }
+
+    // Return a new array with the expander at index 0
+    return [expanderColumn, ...finalColumns];
+  }, [columns, expandedRow, expandableRows, defaultColumnValues])
 
   // ---------------------------------------------------------------------------------------
   // Table state
@@ -110,6 +146,7 @@ export const ServerSideTable = React.forwardRef(({
   const [columnFilters, setColumnFilters] = React.useState(columnFiltersKey ? JSON.parse(sessionStorage.getItem(columnFiltersKey)) || [] : [])
   const [pageIndex, setPageIndex] = React.useState(pageIndexKey ? parseInt(sessionStorage.getItem(pageIndexKey)) || defaultPageIndex : defaultPageIndex)
   const [pageSize, setPageSize] = React.useState(pageSizeKey ? parseInt(sessionStorage.getItem(pageSizeKey)) || initialPageSize : initialPageSize)
+  const [expandedRows, setExpandedRows] = React.useState({});
 
   const { startLoader, stopLoader } = useLoader()
 
@@ -320,6 +357,8 @@ export const ServerSideTable = React.forwardRef(({
       filterActiveColor,
       filterInactiveColor,
       defaultSorting,
+      expandableRows,
+      expandedRow,
     },
     state: {
       data,
@@ -334,7 +373,8 @@ export const ServerSideTable = React.forwardRef(({
       pageIndex,
       setPageIndex,
       pageSize,
-      setPageSize
+      setPageSize,
+      expandedRows,
     },
     api: {
       toggleSorting,
