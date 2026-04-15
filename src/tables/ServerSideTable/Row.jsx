@@ -26,7 +26,7 @@ export const Row = ({ row }) => {
       setRowStyle(props.rowStyle ? props.rowStyle(row) : {})
     }
     props.cellStyle && setCellStyle(props.cellStyle(row))
-  }, [row, props.rowStyle, props.cellStyle])
+  }, [row, isExpanded, props.rowStyle, props.cellStyle])
 
   // ---------------------------------------------------------------------------------------
   // JSX
