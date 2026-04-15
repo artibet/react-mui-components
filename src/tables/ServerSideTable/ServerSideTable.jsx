@@ -63,7 +63,8 @@ export const ServerSideTable = React.forwardRef(({
   fromLabel = 'από',
   toLabel = 'έως',
   expandableRows = false,
-  expandedRow = null    // row => {...}
+  expandedRow = null,    // row => {...}
+  expandedRowStyle = null   // row => {}
 }, ref) => {
 
   // ---------------------------------------------------------------------------------------
@@ -359,6 +360,7 @@ export const ServerSideTable = React.forwardRef(({
       defaultSorting,
       expandableRows,
       expandedRow,
+      expandedRowStyle,
     },
     state: {
       data,

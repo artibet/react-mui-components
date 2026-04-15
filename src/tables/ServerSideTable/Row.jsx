@@ -19,7 +19,12 @@ export const Row = ({ row }) => {
   // Init rowStyle
   // ---------------------------------------------------------------------------------------
   React.useEffect(() => {
-    props.rowStyle && setRowStyle(props.rowStyle(row))
+    if (isExpanded) {
+      setRowStyle(props.expandedRowStyle ? props.expandedRowStyle(row) : {})
+    }
+    else {
+      setRowStyle(props.rowStyle ? props.rowStyle(row) : {})
+    }
     props.cellStyle && setCellStyle(props.cellStyle(row))
   }, [row, props.rowStyle, props.cellStyle])
 
