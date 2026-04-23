@@ -8,6 +8,7 @@ export const MyCurrencyField = ({
   form,
   name,
   label,
+  decimals = 2,
   required = false,
   disabled = false,
   autofocus = false,
@@ -57,7 +58,7 @@ export const MyCurrencyField = ({
           value={value}
           thousandSeparator='.'
           decimalSeparator=','
-          decimalScale={2}
+          decimalScale={decimals}
           fixedDecimalScale={true}
           allowNegative={false}
           onValueChange={handleChange}

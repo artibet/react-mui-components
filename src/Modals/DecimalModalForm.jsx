@@ -135,6 +135,7 @@ export const DecimalModalForm = ({
             form={form}
             name='field'
             label={label}
+            decimals={decimals}
             required={required}
             autofocus={true}
             sx={{ marginTop: 1, }}
