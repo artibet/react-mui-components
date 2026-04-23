@@ -71,7 +71,7 @@ export const DecimalProperty = ({
 
           {/* 2. Value Column (with Missing state handling) */}
           <Grid2 size={{ xs: 12, sm: 6 }}>
-            {required && !value ? (
+            {required && isMissing ? (
               <Stack direction="row" spacing={1} alignItems="center">
                 <Typography variant="body1" color="error.main" fontWeight={600}>
                   Δεν έχει καταχωρηθεί
