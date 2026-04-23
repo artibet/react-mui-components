@@ -26,7 +26,7 @@ export const DecimalProperty = ({
   // State
   // ---------------------------------------------------------------------------------------
   const [showForm, setShowForm] = React.useState(false)
-  const isMissing = !value && required
+  const isMissing = (value === null || value === undefined || value === "") && required
   const [isLoading, setIsLoading] = React.useState(false)
 
   // ---------------------------------------------------------------------------------------
