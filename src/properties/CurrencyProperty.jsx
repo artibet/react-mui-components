@@ -87,7 +87,7 @@ export const CurrencyProperty = ({
             ) : (
               render ||
               <Typography variant="body1" fontWeight={500}>
-                {value ? formatCurrency(value) : placeholder}
+                {!isMissing ? formatCurrency(value) : placeholder}
               </Typography>
             )}
           </Grid2>
@@ -109,7 +109,7 @@ export const CurrencyProperty = ({
                 }}
               >
                 {
-                  !value ? 'Συμπλήρωση' : 'Επεξεργασία'
+                  isMissing ? 'Συμπλήρωση' : 'Επεξεργασία'
                 }
               </Button>
             )}

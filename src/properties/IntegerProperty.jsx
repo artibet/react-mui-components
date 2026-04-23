@@ -86,7 +86,7 @@ export const IntegerProperty = ({
             ) : (
               render ||
               <Typography variant="body1" fontWeight={500}>
-                {value ? value : placeholder}
+                {!isMissing ? value : placeholder}
               </Typography>
             )}
           </Grid2>
@@ -108,7 +108,7 @@ export const IntegerProperty = ({
                 }}
               >
                 {
-                  !value ? 'Συμπλήρωση' : 'Επεξεργασία'
+                  isMissing ? 'Συμπλήρωση' : 'Επεξεργασία'
                 }
               </Button>
             )}

@@ -88,7 +88,7 @@ export const DecimalProperty = ({
             ) : (
               render ||
               <Typography variant="body1" fontWeight={500}>
-                {value ? formatFloat(value, decimals) : placeholder}
+                {!isMissing ? formatFloat(value, decimals) : placeholder}
               </Typography>
             )}
           </Grid2>
@@ -110,7 +110,7 @@ export const DecimalProperty = ({
                 }}
               >
                 {
-                  !value ? 'Συμπλήρωση' : 'Επεξεργασία'
+                  isMissing ? 'Συμπλήρωση' : 'Επεξεργασία'
                 }
               </Button>
             )}
