@@ -54,6 +54,7 @@ export const ConfirmationDialog = ({
     <Dialog
       open={open}
       onClose={handleClose} // Assigned the restricted closer here
+      disableRestoreFocus
       slots={{ transition: Zoom }}
       slotProps={{
         backdrop: {
