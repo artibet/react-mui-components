@@ -8,21 +8,24 @@ export const useModalForm = (initialData = null) => {
   // ---------------------------------------------------------------------------------------
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState(initialData);
+  const [meta, setMeta] = useState(null)
   const [processing, setProcessing] = useState(false);
 
   // ---------------------------------------------------------------------------------------
   // Create callback
   // ---------------------------------------------------------------------------------------
-  const create = useCallback(() => {
+  const create = useCallback((meta = null) => {
     setData(null);
+    setMeta(meta)
     setIsOpen(true);
   }, []);
 
   // ---------------------------------------------------------------------------------------
   // Edit callback
   // ---------------------------------------------------------------------------------------
-  const edit = useCallback((item) => {
-    setData(item);
+  const edit = useCallback((item, meta = null) => {
+    setData(item)
+    setMeta(meta)
     setIsOpen(true);
   }, []);
 
@@ -68,6 +71,7 @@ export const useModalForm = (initialData = null) => {
   return {
     isOpen,
     data,
+    meta,
     processing,
     create,
     edit,
