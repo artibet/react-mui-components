@@ -17,9 +17,8 @@ export const useConfirm = () => {
   // ---------------------------------------------------------------------------------------
   // Close callback function
   // ---------------------------------------------------------------------------------------
-  const close = useCallback((e) => {
+  const close = useCallback(() => {
     if (processing) return; // Prevent closing while deleting
-    e.currentTarget?.blur()
     setIsOpen(false);
     setData(null);
   }, [processing]);
