@@ -72,7 +72,7 @@ export const useModalForm = (initialData = null) => {
     isOpen,
     data,
     meta,
-    processing,
+    processing, setProcessing,
     create,
     edit,
     close,
