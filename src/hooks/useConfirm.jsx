@@ -138,7 +138,7 @@ export const useConfirm = () => {
   return {
     isOpen,
     data,
-    processing,
+    processing, setProcessing,
     open,
     close,
     execute,
