@@ -12,6 +12,7 @@ export const defaultColumnValues = {
   filterMark: '999999',  // When filter type == integer
   filterPlaceholder: 'Αναζήτηση',
   filterOptions: [],    // when filterType == select
+  onFilterChange: null,
   style: null,
   width: '',
   minWidth: '',

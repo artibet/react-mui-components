@@ -321,6 +321,11 @@ export const ServerSideTable = React.forwardRef(({
         }
       }
 
+      // --- CALL THE OPTIONAL FUNCTION HERE ---
+      if (typeof column.onFilterChange === 'function') {
+        column.onFilterChange(value);
+      }
+
       // fetch data with new column filter
       setPageIndex(0)
       fetchData(0, pageSize, sorting, globalFilter, newColumnFilters)
