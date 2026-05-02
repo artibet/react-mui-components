@@ -11,6 +11,7 @@ export const MyNotesField = ({
   disabled = false,
   autofocus = false,
   showErrors = true,
+  readonly = false,
   ...props
 }) => {
 
@@ -47,6 +48,12 @@ export const MyNotesField = ({
           variant="outlined"
           disabled={disabled}
           autoFocus={autofocus}
+          slotProps={{
+            input: {
+              readOnly: readonly,
+              sx: { fontWeight: bold ? 'bold' : '', backgroundColor: readonly ? readonlyBackgroundColor : '' }
+            }
+          }}
           {...props}
         />
       )}
