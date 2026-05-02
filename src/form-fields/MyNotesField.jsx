@@ -12,6 +12,8 @@ export const MyNotesField = ({
   autofocus = false,
   showErrors = true,
   readonly = false,
+  readonlyBackgroundColor = '#dddddd',
+  bold = false,
   ...props
 }) => {
 
