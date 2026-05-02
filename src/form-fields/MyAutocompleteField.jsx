@@ -68,6 +68,7 @@ export const MyAutocompleteField = ({
               }
             }}
             value={localValue ? localValue.label : ''}
+            {...props}
           />
           :
           <Autocomplete
