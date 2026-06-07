@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Autocomplete, TextField } from '@mui/material'
 import axios from 'axios'
 import { Controller } from 'react-hook-form'
@@ -68,7 +68,8 @@ export const MyAutocompleteApiField = React.forwardRef(({
   // Fetch option form existing value on mount
   // ---------------------------------------------------------------------------------------
   React.useEffect(() => {
-    if (form.getValues(name)) {
+    const currentValue = form.getValues(name);
+    if (currentValue) {
       async function fetch() {
         setLoading(true)
         const response = await axios.get(`${optionsUrl}?id=${form.getValues(name)}`)
@@ -78,7 +79,7 @@ export const MyAutocompleteApiField = React.forwardRef(({
       }
       fetch()
     }
-  }, [])
+  }, [optionsUrl, name, valueKey])
 
   // ---------------------------------------------------------------------------------------
   // fetch function
@@ -95,22 +96,24 @@ export const MyAutocompleteApiField = React.forwardRef(({
   // ---------------------------------------------------------------------------------------
   // Input change handler
   // ---------------------------------------------------------------------------------------
-  const handleInputChange = (_, newValue) => {
-    fetchOptions(form.getValues(name), newValue)
-  }
+  const handleInputChange = (event, value, reason) => {
+    if (reason === 'input') {
+      // Regular typing gets throttled
+      debouncedFetch(form.getValues(name), value);
+    } else if (reason === 'clear') {
+      // Instant execution bypass on clean events
+      setOptions([]);
+    }
+  };
 
   // ---------------------------------------------------------------------------------------
-  // Debounced inpute change
+  // Debounced API Search for Typing
   // ---------------------------------------------------------------------------------------
-  const debouncedInputChange = React.useMemo(
-    () =>
-      myDebounce((event, value, reason) => {
-        // ONLY trigger the actual search if the user is typing
-        if (reason === 'input') {
-          handleInputChange(event, value, reason);
-        }
-      }, 300),
-    [] // Created once per component lifecycle
+  const debouncedFetch = useMemo(
+    () => myDebounce((currentId, token) => {
+      fetchOptions(currentId, token);
+    }, 300),
+    [optionsUrl, minChars]
   );
 
   // ---------------------------------------------------------------------------------------
@@ -139,17 +142,24 @@ export const MyAutocompleteApiField = React.forwardRef(({
                 sx: { fontWeight: bold ? 'bold' : '', backgroundColor: readonly ? readonlyBackgroundColor : '' }
               }
             }}
-            value={localValue ? localValue.label : ''}
+            value={localValue ? localValue[labelKey] : ''}
           />
           :
           <Autocomplete
             value={localValue}
             options={options}
-            onInputChange={debouncedInputChange}
+            onInputChange={handleInputChange}
             onChange={(_, newValue) => {
-              setLocalValue(newValue)
-              onChange(newValue ? newValue[valueKey] : null)
-              onChangeProp && (newValue ? onChangeProp(newValue[valueKey]) : onChangeProp(null))
+              setLocalValue(newValue);
+              const outputValue = newValue ? newValue[valueKey] : null;
+              onChange(outputValue);
+              if (onChangeProp) {
+                onChangeProp(outputValue);
+              }
+              // If cleared out entirely, reset options state context immediately
+              if (!newValue) {
+                setOptions([]);
+              }
             }}
             isOptionEqualToValue={(option, value) => option[valueKey] === value[valueKey]}
             getOptionLabel={(option) => option[labelKey]}
