@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Chip, Divider, Grid2, ListItem, Stack, Typography } from '@mui/material'
 import { router } from '@inertiajs/react'
 import { Edit, ErrorOutline } from '@mui/icons-material'
-import { CurrencyModalForm } from '../Modals'
+import { CurrencyModalForm } from '../modals'
 import { formatCurrency } from '../utils'
 
 export const CurrencyProperty = ({

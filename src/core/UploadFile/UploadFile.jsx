@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from '@mui/material'
-import { ConfirmationDialog } from '../../Modals'
+import { ConfirmationDialog } from '../../modals'
 
 export const UploadFile = ({
   activationElement,

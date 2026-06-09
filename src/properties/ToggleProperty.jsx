@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Divider, Grid2, ListItem, Typography } from '@mui/material'
 import { router } from '@inertiajs/react'
 import { ToggleOff, ToggleOn } from '@mui/icons-material'
-import { ConfirmationDialog } from '../Modals'
+import { ConfirmationDialog } from '../modals'
 
 export const ToggleProperty = ({
   label,

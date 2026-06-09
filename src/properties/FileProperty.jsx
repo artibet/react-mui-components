@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Chip, Divider, Grid2, Link, ListItem, Stack, Typography } from '@mui/material'
 import { router } from '@inertiajs/react'
 import { DeleteOutline, ErrorOutline, Upload } from '@mui/icons-material'
-import { ConfirmationDialog } from '../Modals'
+import { ConfirmationDialog } from '../modals'
 
 export const FileProperty = ({
   label,

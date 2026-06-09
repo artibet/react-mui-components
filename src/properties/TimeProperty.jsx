@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Chip, Divider, Grid2, ListItem, Stack, Typography } from '@mui/material'
 import { router } from '@inertiajs/react'
-import { TimeModalForm } from '../Modals'
+import { TimeModalForm } from '../modals'
 import { Edit, ErrorOutline } from '@mui/icons-material'
 import { formatTime } from '../utils'
 
