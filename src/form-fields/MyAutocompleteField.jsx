@@ -16,6 +16,7 @@ export const MyAutocompleteField = ({
   noOptionsText = 'Δεν υπάρχουν επιλογές',
   showErrors = true,
   size = 'medium',
+  onChange: onChangeProp = null,
   readonly = false,
   readonlyBackgroundColor = '#dddddd',
   bold = false,
@@ -74,7 +75,13 @@ export const MyAutocompleteField = ({
           <Autocomplete
             value={localValue}
             required={required}
-            onChange={(_, newValue) => onChange(newValue ? newValue[valueKey] : null)}
+            onChange={(_, newValue) => {
+              const outputValue = newValue ? newValue[valueKey] : null;
+              onChange(outputValue)
+              if (onChangeProp) {
+                onChangeProp(outputValue)
+              }
+            }}
             options={options}
             isOptionEqualToValue={(option, value) => option[valueKey] === value[valueKey]}
             noOptionsText={noOptionsText}
