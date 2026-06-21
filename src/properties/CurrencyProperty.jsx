@@ -25,7 +25,7 @@ export const CurrencyProperty = ({
   // State
   // ---------------------------------------------------------------------------------------
   const [showForm, setShowForm] = React.useState(false)
-  const isMissing = (value === null || value === undefined || value === "") && required
+  const isMissing = (value === null || value === undefined || value === "")
   const [isLoading, setIsLoading] = React.useState(false)
 
   // ---------------------------------------------------------------------------------------
@@ -70,7 +70,7 @@ export const CurrencyProperty = ({
 
           {/* 2. Value Column (with Missing state handling) */}
           <Grid2 size={{ xs: 12, sm: 6 }}>
-            {required && !isMissing ? (
+            {required && isMissing ? (
               <Stack direction="row" spacing={1} alignItems="center">
                 <Typography variant="body1" color="error.main" fontWeight={600}>
                   Δεν έχει καταχωρηθεί
