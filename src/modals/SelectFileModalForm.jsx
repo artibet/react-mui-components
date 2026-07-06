@@ -37,13 +37,22 @@ export const SelectFileModalForm = ({
   // ---------------------------------------------------------------------------------------
   // Validation schema
   // ---------------------------------------------------------------------------------------
+  let descrSchema = yup.string().nullable();
+  if (description) {
+
+    // 1. Check requirement prop
+    if (descriptionRequired) {
+      descrSchema = descrSchema.required(descriptionRequiredMessage);
+    }
+
+    // 2. Check length type restriction prop
+    if (descriptionType === 'string') {
+      descrSchema = descrSchema.max(maxFileName, `Το πεδίο δεν πρέπει να υπερβαίνει τους ${maxFileName} χαρακτήρες`);
+    }
+  }
+
   const schema = yup.object({
-    descr: description ?
-      yup
-        .string()
-        .required(descriptionRequiredMessage)
-        .max(maxFileName, `Το πεδίο δεν πρέπει να υπερβαίνει τους ${maxFileName} χαρακτήρες`)
-      : yup.string(),
+    descr: descrSchema,
     filename: yup
       .mixed()
       .required('Παρακαλώ επιλέξτε ένα αρχείο')
