@@ -3,13 +3,16 @@ import { Button, Dialog, DialogContent, DialogTitle, DialogActions, Stack, Box, 
 import { useForm } from 'react-hook-form'
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
-import { MyTextField, MyUploadField } from '../form-fields'
+import { MyNotesField, MyTextField, MyUploadField } from '../form-fields'
 import { EditNoteRounded } from '@mui/icons-material'
 
 export const SelectFileModalForm = ({
   open,
+  acceptFiles = '*',
   title = 'Νέο Αρχείο',
   description = true,
+  descriptionType = 'string',     // string | text
+  descriptionRequired = true,
   descriptionLabel = 'Περιγραφή Αρχείου',
   descriptionRequiredMessage = 'Παρακαλώ συμπληρώστε την περιγραφή του αρχείου',
   fileSelectLabel = 'Επιλογή Αρχείου',
@@ -19,7 +22,8 @@ export const SelectFileModalForm = ({
   okLabel = 'ΚΑΤΑΧΩΡΗΣΗ',
   cancelLabel = 'ΑΚΥΡΩΣΗ',
   message = null,
-  isLoading = false
+  isLoading = false,
+  size = 'sm'
 }) => {
 
   // ---------------------------------------------------------------------------------------
@@ -82,7 +86,7 @@ export const SelectFileModalForm = ({
   // ---------------------------------------------------------------
   return (
     <Dialog
-      maxWidth='sm'
+      maxWidth={size}
       fullWidth
       open={open}
       onClose={handleClose}
@@ -126,12 +130,12 @@ export const SelectFileModalForm = ({
           <Stack sx={{ marginTop: 2 }} gap={3}>
 
             {
-              description &&
-              <MyTextField
+              description && descriptionType == 'string' &&
+              < MyTextField
                 form={form}
                 name='descr'
                 label={descriptionLabel}
-                required
+                required={descriptionRequired}
                 autofocus
               />
             }
@@ -141,7 +145,18 @@ export const SelectFileModalForm = ({
               name='filename'
               label={fileSelectLabel}
               required
+              acceptFiles={acceptFiles}
             />
+
+            {
+              description && descriptionType == 'text' &&
+              <MyNotesField
+                form={form}
+                name='descr'
+                label={descriptionLabel}
+                required={descriptionRequired}
+              />
+            }
 
           </Stack>
 

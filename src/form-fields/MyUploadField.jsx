@@ -10,6 +10,7 @@ export const MyUploadField = ({
   required = false,
   disabled = false,
   showErrors = true,
+  acceptFiles = "*",
   ...props
 }) => {
 
@@ -88,7 +89,7 @@ export const MyUploadField = ({
       />
       {/* Hidden form to submit file */}
       <input type='file' ref={inputFileRef} style={{ display: 'none' }
-      } onChange={(e) => handleChange(e.currentTarget.files[0])} />
+      } onChange={(e) => handleChange(e.currentTarget.files[0])} accept={acceptFiles} />
     </>
   )
 }
