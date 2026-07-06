@@ -15,11 +15,14 @@ export const PropertyGroup = ({
   // ---------------------------------------------------------------------------------------
   return (
     <Paper variant="outlined" sx={{ mb: 3, overflow: 'hidden', ...sx, }}>
-      <Box sx={{ px: 2, py: 1.5, bgcolor: titleBgColor }}>
-        <Typography variant="subtitle2" color={titleColor} fontWeight={titleFontWeight}>
-          {title}
-        </Typography>
-      </Box>
+      {
+        title &&
+        <Box sx={{ px: 2, py: 1.5, bgcolor: titleBgColor }}>
+          <Typography variant="subtitle2" color={titleColor} fontWeight={titleFontWeight}>
+            {title}
+          </Typography>
+        </Box>
+      }
       <List disablePadding>
         {children}
       </List>
