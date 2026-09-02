@@ -20,6 +20,7 @@ export const MyAutocompleteField = ({
   readonly = false,
   readonlyBackgroundColor = '#dddddd',
   bold = false,
+  freeSolo = false,
   ...props
 }) => {
 
@@ -75,6 +76,7 @@ export const MyAutocompleteField = ({
           <Autocomplete
             value={localValue}
             required={required}
+            freeSolo={freeSolo}
             onChange={(_, newValue) => {
               const outputValue = newValue ? newValue[valueKey] : null;
               onChange(outputValue)
