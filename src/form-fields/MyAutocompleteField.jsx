@@ -1,5 +1,5 @@
-import { Autocomplete, TextField } from '@mui/material'
 import React from 'react'
+import { Autocomplete, TextField } from '@mui/material'
 import { Controller } from 'react-hook-form'
 
 export const MyAutocompleteField = ({
@@ -27,21 +27,23 @@ export const MyAutocompleteField = ({
   // ---------------------------------------------------------------------------------------
   // State
   // ---------------------------------------------------------------------------------------
-  const [localValue, setLocalValue] = React.useState(null)
-  const formValue = form.watch(name)
-
-  // ---------------------------------------------------------------------------------------
-  // Update localValue on form value changed
-  // ---------------------------------------------------------------------------------------
-  React.useEffect(() => {
-    setLocalValue(options.find(option => option[valueKey] === formValue) || null)
-  }, [formValue])
-
-  // ---------------------------------------------------------------------------------------
-  // Destructure form fiels
-  // ---------------------------------------------------------------------------------------
   const { control, formState } = form
   const { errors } = formState
+  const formValue = form.watch(name)
+
+  // 1. Resolve localValue: find object in options or fallback to the raw string if freeSolo
+  const localValue = React.useMemo(() => {
+    if (formValue === null || formValue === undefined || formValue === '') {
+      return null
+    }
+    const matched = options.find(
+      option => option[valueKey] === formValue || option[labelKey] === formValue
+    )
+    if (matched) return matched
+    // In freeSolo mode, allow raw string values
+    return freeSolo ? formValue : null
+  }, [formValue, options, valueKey, labelKey, freeSolo])
+
 
   // ---------------------------------------------------------------------------------------
   // JSX
@@ -54,7 +56,7 @@ export const MyAutocompleteField = ({
         required: required,
         disabled: disabled
       }}
-      render={({ field: { onChange, onBlur, value } }) => (
+      render={({ field: { onChange, onBlur } }) => (
         readonly
           ?
           <TextField
@@ -69,7 +71,11 @@ export const MyAutocompleteField = ({
                 sx: { fontWeight: bold ? 'bold' : '', backgroundColor: readonly ? readonlyBackgroundColor : '' }
               }
             }}
-            value={localValue ? localValue.label : ''}
+            value={
+              typeof localValue === 'object' && localValue !== null
+                ? localValue[labelKey]
+                : localValue ?? ''
+            }
             {...props}
           />
           :
@@ -77,18 +83,35 @@ export const MyAutocompleteField = ({
             value={localValue}
             required={required}
             freeSolo={freeSolo}
+            options={options}
+            size={size}
+            noOptionsText={noOptionsText}
+            getOptionLabel={(option) => {
+              if (typeof option === 'string') return option
+              return option?.[labelKey] ?? ''
+            }}
+            isOptionEqualToValue={(option, val) => {
+              if (typeof val === 'string') {
+                return option[labelKey] === val || option[valueKey] === val
+              }
+              return option[valueKey] === val?.[valueKey]
+            }}
             onChange={(_, newValue) => {
-              const outputValue = newValue ? newValue[valueKey] : null;
+              let outputValue = null
+              if (typeof newValue === 'string') {
+                outputValue = newValue
+              } else if (newValue && typeof newValue === 'object') {
+                outputValue = newValue[valueKey] ?? newValue[labelKey]
+              }
               onChange(outputValue)
-              if (onChangeProp) {
-                onChangeProp(outputValue)
+              if (onChangeProp) onChangeProp(outputValue)
+            }}
+            onInputChange={(_, newInputValue, reason) => {
+              if (freeSolo && reason === 'input') {
+                onChange(newInputValue)
+                if (onChangeProp) onChangeProp(newInputValue)
               }
             }}
-            options={options}
-            isOptionEqualToValue={(option, value) => option[valueKey] === value[valueKey]}
-            noOptionsText={noOptionsText}
-            getOptionLabel={(option) => option[labelKey]}
-            size={size}
             slotProps={{
               input: {
                 maxLength: maxLength,
