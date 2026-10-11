@@ -9,14 +9,18 @@ const GlobalFilter = () => {
   // Context data
   // ---------------------------------------------------------------------------------------
   const { state, props, api } = React.useContext(TableContext)
+  const apiRef = React.useRef(api.handleGlobalFilterChange)
+
+  React.useEffect(() => {
+    apiRef.current = api.handleGlobalFilterChange
+  }, [api.handleGlobalFilterChange])
 
   // Create a stable debounced function so the timer persists
-  const debouncedGlobalChange = React.useCallback(
+  const debouncedGlobalChange = React.useMemo(() =>
     myDebounce((value) => {
-      api.handleGlobalFilterChange(value)
+      apiRef.current(value)
     }, 300),
-    [api] // Only recreate if api changes (which usually only happens on mount)
-  )
+    [])
 
   if (!props.enableGlobalFilter) return null
 

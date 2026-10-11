@@ -12,17 +12,21 @@ const ColumnFilter = ({ column }) => {
   // Context data
   // ---------------------------------------------------------------------------------------
   const { api, props } = React.useContext(TableContext)
+  const apiRef = React.useRef(api.handleColumnFilterChange)
 
   const filterValue = api.getColumnFilter(column)
 
+  React.useEffect(() => {
+    apiRef.current = api.handleColumnFilterChange
+  }, [api.handleColumnFilterChange])
+
   // 1. Create a stable debounced function
   // We use useCallback so it persists across renders
-  const debouncedFilterChange = React.useCallback(
+  const debouncedFilterChange = React.useMemo(() =>
     myDebounce((col, val) => {
-      api.handleColumnFilterChange(col, val)
+      apiRef.current(col, val)
     }, 300),
-    [api] // Only recreate if the api object changes
-  )
+    [])
 
   // type == text
   if (column.filterType === 'text') {
