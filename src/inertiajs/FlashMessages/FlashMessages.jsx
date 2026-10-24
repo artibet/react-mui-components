@@ -3,13 +3,13 @@ import { Alert } from '@mui/material'
 import { usePage } from '@inertiajs/react'
 import { ShowErrors } from '../../core/ShowErrors'
 
-export const FlashMessages = () => {
+export const FlashMessages = (showErrors = true) => {
 
   const { flash, errors } = usePage().props
 
   return (
     <>
-      <ShowErrors errors={errors} />
+      {showErrors && <ShowErrors errors={errors} />}
       {
         Object.keys(flash).map((key, index) => {
           if (!flash[key]) {
