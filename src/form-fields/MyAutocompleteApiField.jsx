@@ -27,6 +27,7 @@ export const MyAutocompleteApiField = React.forwardRef(({
   placeholder = '',
   size = 'medium',
   onChange: onChangeProp = null,
+  onSelectOption = null,
   showErrors = true,
   readonly = false,
   readonlyBackgroundColor = '#dddddd',
@@ -155,6 +156,9 @@ export const MyAutocompleteApiField = React.forwardRef(({
               onChange(outputValue);
               if (onChangeProp) {
                 onChangeProp(outputValue);
+              }
+              if (onSelectOption) {
+                onSelectOption(newValue);
               }
               // If cleared out entirely, reset options state context immediately
               if (!newValue) {
